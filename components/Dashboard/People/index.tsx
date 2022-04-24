@@ -29,11 +29,11 @@ const People = () => {
         </Heading>
       </Flex>
       <Flex direction='column' w='100%' gap={4}>
-        <Contact name='Name 1' avatarUrl='online' />
-        <Contact name='Name 2' avatarUrl='online' />
-        <Contact name='Name 3' avatarUrl='online' />
-        <Contact name='Name 4' avatarUrl='offline' />
-        <Contact name='Name 5' avatarUrl='offline' />
+        <Contact name='Name 1' avatarUrl='' />
+        <Contact name='Name 2' avatarUrl='' />
+        <Contact name='Name 3' avatarUrl='' />
+        <Contact name='Name 4' avatarUrl='' />
+        <Contact name='Name 5' avatarUrl='' />
       </Flex>
     </Box>
   )
