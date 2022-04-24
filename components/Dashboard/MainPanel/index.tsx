@@ -1,6 +1,6 @@
 import { Grid, useColorModeValue } from '@chakra-ui/react'
 
-import FormRoom from '../FormRoom'
+import FormMeeting from '../FormMeeting'
 import PanelActivities from '../PanelActivities'
 
 const MainPanel = () => {
@@ -8,7 +8,7 @@ const MainPanel = () => {
   return (
     <>
       <Grid gap={4} bg={bg} rounded='lg' p={6}>
-        <FormRoom />
+        <FormMeeting />
         <PanelActivities />
       </Grid>
     </>
