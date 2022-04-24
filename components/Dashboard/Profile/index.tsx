@@ -18,7 +18,13 @@ const Profile = () => {
             </Text>
           </Flex>
         </Flex>
-        <Button variant='solid' fontWeight='semibold' bg='red.600' rightIcon={<LogoutIc />}>
+        <Button
+          variant='solid'
+          fontWeight='semibold'
+          bg='red.600'
+          rightIcon={<LogoutIc />}
+          _hover={{ bg: 'red.500' }}
+        >
           LOGOUT
         </Button>
       </Flex>

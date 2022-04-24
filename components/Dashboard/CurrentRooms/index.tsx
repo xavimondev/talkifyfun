@@ -18,7 +18,7 @@ const Room = ({ name, totalParticipants }: Props): JSX.Element => {
           Participants: {totalParticipants}
         </Text>
       </Flex>
-      <Button variant='solid' size='sm' bg='red.600'>
+      <Button variant='solid' size='sm' bg='red.600' _hover={{ bg: 'red.500' }}>
         JOIN
       </Button>
     </Flex>

@@ -20,7 +20,13 @@ const FormRoom = () => {
           placeholder='Enter room name'
           width='full'
         />
-        <Button variant='solid' fontWeight='semibold' bg='red.600' leftIcon={<AddIc />}>
+        <Button
+          variant='solid'
+          fontWeight='semibold'
+          bg='red.600'
+          leftIcon={<AddIc />}
+          _hover={{ bg: 'red.500' }}
+        >
           START MEETING
         </Button>
       </form>
