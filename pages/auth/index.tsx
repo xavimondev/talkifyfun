@@ -1,16 +1,12 @@
 import type { NextPage } from 'next'
 
-import Head from 'next/head'
-
 import LoginWithProvider from 'components/Auth/Login'
+import Header from 'components/Header'
 
 const Login: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Login</title>
-        <meta name='description' content='Login Page for authentication' />
-      </Head>
+      <Header title='Login' content='Login Page' />
       <LoginWithProvider />
     </>
   )
