@@ -55,3 +55,80 @@ export const DiscordIc = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+export const AddIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(2 3)'
+      >
+        <path d='m8 16c4.4380025 0 8-3.5262833 8-7.96428571 0-4.43800246-3.5619975-8.03571429-8-8.03571429-4.43800245 0-8 3.59771183-8 8.03571429 0 4.43800241 3.56199755 7.96428571 8 7.96428571z' />
+        <path d='m4 8h8' />
+        <path d='m8 12.0563492v-8.0563492z' />
+      </g>
+    </svg>
+  )
+}
+
+export const PeopleIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(1 2)'
+      >
+        <path d='m7.5.5c1.65685425 0 3 1.34314575 3 3v2c0 1.65685425-1.34314575 3-3 3s-3-1.34314575-3-3v-2c0-1.65685425 1.34314575-3 3-3zm7 14v-.7281753c0-3.1864098-3.6862915-5.2718247-7-5.2718247s-7 2.0854149-7 5.2718247v.7281753c0 .5522847.44771525 1 1 1h12c.5522847 0 1-.4477153 1-1z' />
+        <path
+          d='m11.5199327.67783074c1.1547685.41741154 1.9800673 1.52341097 1.9800673 2.82216926v1c0 1.29707884-.8475766 2.5813505-2 3 .6742649-.91876977 1.0109204-2.0857069 1.0099664-3.50081137s-.3309652-2.52222377-.9900337-3.32135789zm4.9800673 14.82216926h1c.5522847 0 1-.4477153 1-1 0-.2427251 0-.4854502 0-.7281753 0-2.1698712-1.7094418-3.82917861-3.8465775-4.66705336 0 0 2.8465775 2.39522866 1.8465775 6.39522866z'
+          fill='currentColor'
+        />
+      </g>
+    </svg>
+  )
+}
+
+export const ThreadIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(1 1)'
+      >
+        <path d='m8.5 4.5c-1.65685425 0-3 1.34314575-3 3v5c0 1.6568542 1.34314575 3 3 3l2.468-.001 1.7152977 2.4298518c.1639804.2320786.4176379.3818336.6960544.4156462l.1206479.0072945c.5128358 0 .9355072-.3860402.9932723-.8833789l.0067277-.1166211.001-1.8527925.999.001c1.6568542 0 3-1.3431458 3-3v-5c0-1.65685425-1.3431458-3-3-3z' />
+        <path d='m5.5 12.5-2 2v-4h-.90625561c-1.09544195 0-1.98704628-.88123276-1.9998631-1.97659973l-.07020561-6c-.01292361-1.10449389.87196894-2.01033976 1.97646283-2.02326337.00779976-.00009127.01559998-.0001369.02340027-.0001369h8.97646122c1.1045695 0 2 .8954305 2 2v2' />
+      </g>
+    </svg>
+  )
+}
+
+export const LogoutIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(3 3)'
+      >
+        <path d='m6.5 10.5 3-3-3-3' />
+        <path d='m5 3v9' transform='matrix(0 1 -1 0 12.5 2.5)' />
+        <path d='m1.5 5.5v-3.0079176c0-1.10147263.89060277-1.99561512 1.99206673-1.99998427l7.95228497-.03160773c1.1045608-.00432011 2.0035361.8875515 2.0079175 1.99211231l.0398162 10.02918369c.0043323 1.1045608-.8875404 2.003535-1.9921012 2.0079309-.0026436 0-.0052873 0-.0079309 0h-7.9920533c-1.1045695 0-2-.8954305-2-2v-2.9897173' />
+      </g>
+    </svg>
+  )
+}
