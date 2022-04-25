@@ -1,11 +1,11 @@
 import type { GetServerSideProps, NextPage } from 'next'
 
+import { Profile } from 'types'
 import { supabase } from 'services/config'
+import { getUserProfile } from 'utils/getUserProfile'
 import Header from 'components/Header'
 import Dashboard from 'components/Dashboard'
 import Layout from 'components/Layout'
-import { getUserProfile } from 'utils/getUserProfile'
-import { Profile } from 'types'
 
 type Props = {
   profile: Profile
