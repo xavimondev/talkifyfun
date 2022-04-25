@@ -6,9 +6,14 @@ type Provider = 'google' | 'discord'
 
 export const signInWithProvider = async (provider: Provider) => {
   try {
-    const { user, error } = await supabase.auth.signIn({
-      provider: provider
-    })
+    const { user, error } = await supabase.auth.signIn(
+      {
+        provider: provider
+      }
+      // {
+      //   redirectTo: 'http://localhost:3000/home'
+      // }
+    )
     if (error) throw new Error('An error ocurred during authentication')
     return user
   } catch (error) {
