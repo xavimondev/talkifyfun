@@ -1,7 +1,10 @@
 import type { GetServerSideProps, NextPage } from 'next'
 
+import { useEffect } from 'react'
+
 import { Profile } from 'types'
 import { supabase } from 'services/config'
+import { getToken } from 'utils/getToken'
 import { getUserProfile } from 'utils/getUserProfile'
 import Header from 'components/Header'
 import Dashboard from 'components/Dashboard'
@@ -12,6 +15,9 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ profile }) => {
+  useEffect(() => {
+    getToken('testing', profile.id).then(console.log)
+  }, [])
   return (
     <>
       <Header title='Dashboard' content='Welcome to dashboard xavimon.dev 😊' />

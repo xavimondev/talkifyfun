@@ -17,7 +17,9 @@
     "@supabase/supabase-js": "1.35.2",
     "next": "12.1.5",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "twilio": "3.76.1",
+    "twilio-video": "2.21.1"
   },
   "devDependencies": {
     "@types/node": "17.0.25",
