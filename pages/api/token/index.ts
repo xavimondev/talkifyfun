@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import twilio from 'twilio'
 
 const ACCOUNT_SID = process.env.ACCOUNT_SID as string
-const API_KEY = process.env.API_KEY as string
-const API_SECRET = process.env.API_SECRET as string
+const API_KEY_SID = process.env.API_KEY_SID as string
+const API_KEY_SECRET = process.env.API_KEY_SECRET as string
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   /**
@@ -13,7 +13,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
    */
   const { userId, roomId } = req.body
 
-  const token = new twilio.jwt.AccessToken(ACCOUNT_SID, API_KEY, API_SECRET, {
+  const token = new twilio.jwt.AccessToken(ACCOUNT_SID, API_KEY_SID, API_KEY_SECRET, {
     identity: userId
   })
 
