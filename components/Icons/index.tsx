@@ -132,3 +132,115 @@ export const LogoutIc = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+export const MicrophoneMutedIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(5 2)'
+      >
+        <path d='m8.5 6 .00115967 1.5c-.21419271 2-1.21535238 3-3.00115967 3s-2.78464762-1-2.99884033-3l-.00115967-3.5c0-2 1.85706111-3.2309912 2.5-3.5' />
+        <g transform='translate(6)'>
+          <path d='m.5 4.5 4-4' />
+          <path d='m4.5 4.5-4-4z' />
+        </g>
+        <path d='m10.5 7.5c0 2.7614237-2.23857625 5-5 5-2.6887547 0-4.88181811-2.1223067-4.99538049-4.78311038l-.00461951-.21688962' />
+        <path d='m5.522 12.5v4' />
+      </g>
+    </svg>
+  )
+}
+
+export const MicrophoneIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(5 2)'
+      >
+        <path d='m5.38916302.61501045.11083698-.00409775c1.5967308-.05903257 2.93899223 1.18751813 2.9980248 2.78424894.00131669.0356141.0019752.07124949.0019752.10688793v3.99795043c0 1.65685425-1.34314575 3-3 3s-3-1.34314575-3-3v-3.88703773c0-1.61372368 1.27654106-2.93833174 2.88916302-2.99795182z' />
+        <path d='m10.5 7.5c0 2.7614237-2.23857625 5-5 5-2.6887547 0-4.88181811-2.1223067-4.99538049-4.78311038l-.00461951-.21688962' />
+        <path d='m5.5 12.5v4' />
+      </g>
+    </svg>
+  )
+}
+
+export const ScreenShareIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(3 4)'
+      >
+        <path d='m3.5 10.5-1-.0345601c-1.10193561-.0037085-2-.93261826-2-2.03456011v-5.9654399c0-1.1045695.8954305-2 2-2l10-.00245977c1.1045695 0 2 .8954305 2 2v6.00245977c0 1.1045695-.8954305 2.00000001-2 2.00000001-.0014957 0-.3348291.01234-1 .0370199' />
+        <path d='m7.5 12.5-3-3h6z' transform='matrix(1 0 0 -1 0 22)' />
+      </g>
+    </svg>
+  )
+}
+
+export const LeaveRoomIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(4 3)'
+      >
+        <path d='m10.595 10.5 2.905-3-2.905-3' />
+        <path d='m13.5 7.5h-9' />
+        <path d='m10.5.5-8 .00224609c-1.1043501.00087167-1.9994384.89621131-2 2.00056153v9.99438478c0 1.1045695.8954305 2 2 2h8.0954792' />
+      </g>
+    </svg>
+  )
+}
+
+export const BreakRoomIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <g
+        fill='none'
+        fillRule='evenodd'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(2 5)'
+      >
+        <path d='m14.5.5h-12.00000001c-1.1045695 0-2 .8954305-2 2v6c0 1.1045695.8954305 2 2 2h12.00000001c1.1045695 0 2-.8954305 2-2v-6c0-1.1045695-.8954305-2-2-2z' />
+        <path d='m5.5.5v10' />
+        <path d='m11.5.5v10' />
+      </g>
+    </svg>
+  )
+}
+
+export const BackIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <path
+        d='m5.66116524 3.36827202c5.18469776-.47094658 8.51890836 1.5289737 9.99999996 6-2.8248102-3.14044041-6.34158528-3.71816233-9.99999996-2v2.99999998l-5-4.99999998 5-5z'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        transform='translate(2.839 4.132)'
+      />
+    </svg>
+  )
+}
