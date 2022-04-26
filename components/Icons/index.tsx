@@ -1,10 +1,5 @@
 import React from 'react'
 
-type Props = {
-  width: string
-  height: string
-}
-
 export const GoogleIc = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg

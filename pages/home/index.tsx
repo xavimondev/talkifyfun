@@ -15,9 +15,6 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ profile }) => {
-  useEffect(() => {
-    getToken('testing', profile.id).then(console.log)
-  }, [])
   return (
     <>
       <Header title='Dashboard' content='Welcome to dashboard xavimon.dev 😊' />
