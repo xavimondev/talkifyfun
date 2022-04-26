@@ -1,11 +1,10 @@
 import { GetServerSideProps } from 'next'
-import { useEffect, useState } from 'react'
-import Video, { Participant } from 'twilio-video'
+import { Participant } from 'twilio-video'
 import { User } from '@supabase/supabase-js'
 
 import { supabase } from 'services/config'
-import { getToken } from 'utils/getToken'
 import Member from 'components/Member'
+import useRoom from 'hooks/useRoom'
 
 type Props = {
   userId: User['id']
@@ -17,48 +16,12 @@ type Props = {
 // CURRENT iwannaknowyu MAX_CAPACITY = 15
 
 const RoomDetails = ({ userId, roomId }: Props) => {
-  const [room, setRoom] = useState<Video.Room>()
-  const [participants, setParticipants] = useState<Participant[]>([])
+  const { room, participants } = useRoom(roomId, userId)
 
   const remoteParticipants = participants.map((participant: Participant) => (
     <p key={participant.sid}>{participant.identity}</p>
   ))
 
-  useEffect(() => {
-    const participantConnected = (participant: Participant) => {
-      setParticipants((prevParticipants: Participant[]) => [...prevParticipants, participant])
-    }
-    const participantDisconnected = (participant: Participant) => {
-      setParticipants((prevParticipants: Participant[]) =>
-        prevParticipants.filter((p: Participant) => p !== participant)
-      )
-    }
-
-    getToken(roomId, userId).then((token) => {
-      Video.connect(token, {
-        name: 'hello'
-      }).then((room) => {
-        setRoom(room)
-        room.on('participantConnected', participantConnected)
-        room.on('participantDisconnected', participantDisconnected)
-        room.participants.forEach(participantConnected)
-      })
-    })
-
-    return () => {
-      setRoom((currentRoom: any) => {
-        if (currentRoom && currentRoom.localParticipant.state === 'connected') {
-          currentRoom.localParticipant.tracks.forEach((trackPublication: any) => {
-            trackPublication.track.stop()
-          })
-          currentRoom.disconnect()
-          return null
-        } else {
-          return currentRoom
-        }
-      })
-    }
-  }, [roomId, userId])
   return (
     <div className='room'>
       <h2>Room: {room?.name}</h2>
