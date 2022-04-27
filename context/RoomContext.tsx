@@ -4,16 +4,7 @@ import { roomData } from 'config/roomData'
 import { RoomCall } from 'types/room'
 import { RoomState } from 'types/context'
 
-// Initialize our context
-const initialValues = {
-  listRooms: roomData,
-  roomSelected: null,
-  addRoom: () => undefined,
-  selectRoom: () => undefined,
-  findRoom: () => undefined
-}
-
-const RoomContext = createContext<RoomState>(initialValues)
+const RoomContext = createContext<RoomState | null>(null)
 
 // Props of our provider
 type PropsRoomProvider = {
@@ -27,13 +18,15 @@ export const RoomProvider = ({ children }: PropsRoomProvider) => {
   const addRoom = (room: RoomCall) => setListRooms([room, ...listRooms])
   const selectRoom = (room: RoomCall) => setRoomSelected(room)
   const findRoom = (code: string) => listRooms.find((room) => room.shareableCode === code)
+  const unsetSelectedRoom = () => setTimeout(() => setRoomSelected(null), 1000)
 
   const contextValue = {
     listRooms,
     roomSelected,
     addRoom,
     selectRoom,
-    findRoom
+    findRoom,
+    unsetSelectedRoom
   }
   return <RoomContext.Provider value={contextValue}>{children}</RoomContext.Provider>
 }

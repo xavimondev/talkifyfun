@@ -28,16 +28,16 @@ const RoomDetails = ({ userId, roomId }: Props) => {
   // console.log(roomSelected)
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
 
-  const { name, shareableCode } = roomSelected!
-
   return (
-    <LayoutRoomDetails roomName={name}>
-      <VideoCall member={room?.localParticipant}>
-        {/* <FallbackVideo /> */}
-        {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
-      </VideoCall>
-      <PeopleConnected participants={participants} />
-    </LayoutRoomDetails>
+    <>
+      <LayoutRoomDetails>
+        <VideoCall member={room?.localParticipant}>
+          {/* <FallbackVideo /> */}
+          {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
+        </VideoCall>
+        <PeopleConnected participants={participants} />
+      </LayoutRoomDetails>
+    </>
   )
 }
 
