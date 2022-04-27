@@ -1,31 +1,55 @@
-import { Box, Button, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Input, Link, Text, useColorModeValue } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
-import { ThreadIc } from 'components/Icons'
+import { AddIc, ThreadIc } from 'components/Icons'
+import { RoomCall } from 'types/room'
+import AddRoom from 'components/Forms/AddRoom'
 
-type Props = {
-  name: string
-  totalParticipants: number
+type PropsRoom = {
+  room: RoomCall
 }
 
-const Room = ({ name, totalParticipants }: Props): JSX.Element => {
+const Room = ({ room }: PropsRoom): JSX.Element => {
+  const { id, name, amountParticipants, shareableCode } = room
   return (
     <Flex my={{ sm: '1rem', xl: '10px' }} alignItems='center' justifyContent='space-between'>
       <Flex direction='column'>
-        <Text fontSize='md' color='white' fontWeight='bold'>
-          {name}
-        </Text>
+        <NextLink href={`/room/${id}`} passHref>
+          <Link
+            _hover={{
+              textDecoration: 'none'
+            }}
+          >
+            <Text fontSize='md' color='white' fontWeight='bold'>
+              {name}
+            </Text>
+          </Link>
+        </NextLink>
         <Text fontSize='sm' color='#a1a2a9' fontFamily='body' fontWeight='semibold' me='16px'>
-          Participants: {totalParticipants}
+          Participants: {amountParticipants}
         </Text>
       </Flex>
-      <Button variant='solid' size='sm' bg='red.600' _hover={{ bg: 'red.500' }}>
-        JOIN
-      </Button>
+      <NextLink href={`/room/${id}`} passHref>
+        <Link
+          borderRadius='md'
+          padding={2}
+          variant='solid'
+          fontSize='sm'
+          fontWeight='semibold'
+          bg='red.600'
+          _hover={{ bg: 'red.500' }}
+        >
+          JOIN
+        </Link>
+      </NextLink>
     </Flex>
   )
 }
 
-const CurrentRooms = () => {
+type PropsRooms = {
+  listRooms: RoomCall[]
+}
+const CurrentRooms = ({ listRooms }: PropsRooms) => {
   const bg = useColorModeValue('blue.400', '#181b29')
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
@@ -35,10 +59,13 @@ const CurrentRooms = () => {
           Rooms available
         </Heading>
       </Flex>
-      <Flex direction='column' w='100%' gap={2}>
-        <Room name='Name 1' totalParticipants={4} />
-        <Room name='Name 2' totalParticipants={4} />
-        <Room name='Name 3' totalParticipants={4} />
+      <Flex direction='column' w='100%' gap={6}>
+        <AddRoom />
+        <Flex direction='column' w='100%' gap={2}>
+          {listRooms.map((room) => (
+            <Room key={room.id} room={room} />
+          ))}
+        </Flex>
       </Flex>
     </Box>
   )
