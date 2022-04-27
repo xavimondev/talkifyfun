@@ -9,6 +9,7 @@ import HeaderRoom from 'components/RoomDetails/HeaderRoom'
 import VideoCall from 'components/RoomDetails/VideoCall'
 import FallbackVideo from 'components/RoomDetails/FallbackVideo'
 import Member from 'components/RoomDetails/Member'
+import Header from 'components/Header'
 
 type Props = {
   userId: User['id']
@@ -23,22 +24,28 @@ const RoomDetails = ({ userId, roomId }: Props) => {
   const { room, participants } = useRoom(userId, roomId)
 
   return (
-    <Flex className='room' direction='column' m={8} gap={6}>
-      <HeaderRoom title={'Charlando con midudev'} />
-      <Grid
-        gridTemplateColumns={{ base: '1fr', md: '2fr 1fr', lg: '2fr 1fr', xl: '3fr 1fr' }}
-        gridTemplateRows={{ base: '500px', lg: '550px', xl: '650px' }}
-        gap={6}
-      >
-        {/* <Member member={room?.localParticipant} />
+    <>
+      <Header
+        title={'Room: Charlando con midudev'}
+        content='Welcome to the room 🙂 Charlando con midudev'
+      />
+      <Flex className='room' direction='column' m={8} gap={6}>
+        <HeaderRoom title={'Charlando con midudev'} />
+        <Grid
+          gridTemplateColumns={{ base: '1fr', md: '2fr 1fr', lg: '2fr 1fr', xl: '3fr 1fr' }}
+          gridTemplateRows={{ base: '500px', lg: '550px', xl: '650px' }}
+          gap={6}
+        >
+          {/* <Member member={room?.localParticipant} />
         <PeopleConnected participants={participants} /> */}
-        <VideoCall member={room?.localParticipant}>
-          {/* <FallbackVideo /> */}
-          {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
-        </VideoCall>
-        <PeopleConnected participants={participants} />
-      </Grid>
-    </Flex>
+          <VideoCall member={room?.localParticipant}>
+            {/* <FallbackVideo /> */}
+            {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
+          </VideoCall>
+          <PeopleConnected participants={participants} />
+        </Grid>
+      </Flex>
+    </>
   )
 }
 
