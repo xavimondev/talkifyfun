@@ -3,7 +3,6 @@ import { Grid } from '@chakra-ui/react'
 
 import useAuth from 'hooks/useAuth'
 import { Profile as UserProfile } from 'types'
-import useDashboard from 'hooks/useDashboard'
 
 import CurrentRooms from './CurrentRooms'
 import People from './People'

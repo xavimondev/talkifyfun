@@ -2,7 +2,7 @@ import { Box, Button, Input } from '@chakra-ui/react'
 
 import { EnterRoomIc } from 'components/Icons'
 
-const FormNewRoom = () => {
+const JoinRoom = () => {
   return (
     <Box mb={4}>
       <form
@@ -34,4 +34,4 @@ const FormNewRoom = () => {
   )
 }
 
-export default FormNewRoom
+export default JoinRoom
