@@ -8,9 +8,10 @@ import AddRoom from 'components/Forms/AddRoom'
 
 type PropsRoom = {
   room: RoomCall
+  selectRoom: (room: RoomCall) => void
 }
 
-const Room = ({ room }: PropsRoom): JSX.Element => {
+const Room = ({ room, selectRoom }: PropsRoom): JSX.Element => {
   const { id, name, amountParticipants, shareableCode } = room
   return (
     <Flex my={{ sm: '1rem', xl: '10px' }} alignItems='center' justifyContent='space-between'>
@@ -39,6 +40,7 @@ const Room = ({ room }: PropsRoom): JSX.Element => {
           fontWeight='semibold'
           bg='red.600'
           _hover={{ bg: 'red.500' }}
+          onClick={() => selectRoom(room)}
         >
           JOIN
         </Link>
@@ -49,7 +51,7 @@ const Room = ({ room }: PropsRoom): JSX.Element => {
 
 const CurrentRooms = () => {
   const bg = useColorModeValue('blue.400', '#181b29')
-  const { listRooms } = useRoomContext()
+  const { listRooms, selectRoom } = useRoomContext()
 
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
@@ -63,7 +65,7 @@ const CurrentRooms = () => {
         <AddRoom />
         <Flex direction='column' w='100%' gap={2}>
           {listRooms.map((room) => (
-            <Room key={room.id} room={room} />
+            <Room key={room.id} room={room} selectRoom={selectRoom} />
           ))}
         </Flex>
       </Flex>
