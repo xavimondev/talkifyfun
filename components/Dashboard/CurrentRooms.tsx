@@ -4,6 +4,7 @@ import NextLink from 'next/link'
 import { ThreadIc } from 'components/Icons'
 import { RoomCall } from 'types/room'
 import AddRoom from 'components/Forms/AddRoom'
+import useDashboard from 'hooks/useDashboard'
 
 type PropsRoom = {
   room: RoomCall
@@ -46,11 +47,10 @@ const Room = ({ room }: PropsRoom): JSX.Element => {
   )
 }
 
-type PropsRooms = {
-  listRooms: RoomCall[]
-}
-const CurrentRooms = ({ listRooms }: PropsRooms) => {
+const CurrentRooms = () => {
   const bg = useColorModeValue('blue.400', '#181b29')
+  const { listRooms, addRoom } = useDashboard()
+
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
       <Flex direction='row' alignItems='center' mb={6}>
@@ -60,7 +60,7 @@ const CurrentRooms = ({ listRooms }: PropsRooms) => {
         </Heading>
       </Flex>
       <Flex direction='column' w='100%' gap={6}>
-        <AddRoom />
+        <AddRoom addRoom={addRoom} />
         <Flex direction='column' w='100%' gap={2}>
           {listRooms.map((room) => (
             <Room key={room.id} room={room} />

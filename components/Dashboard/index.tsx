@@ -1,8 +1,9 @@
+// import { useState } from 'react'
 import { Grid } from '@chakra-ui/react'
 
 import useAuth from 'hooks/useAuth'
 import { Profile as UserProfile } from 'types'
-import { roomData } from 'config/roomData'
+import useDashboard from 'hooks/useDashboard'
 
 import CurrentRooms from './CurrentRooms'
 import People from './People'
@@ -21,7 +22,7 @@ const Dashboard = ({ profile }: Props) => {
       <Grid templateColumns={{ sm: '1fr', lg: '1fr 2fr 1fr' }} templateRows='1fr' gap={5}>
         <Grid templateColumns='1fr' templateRows={{ sm: '1fr', lg: '200px 1fr' }} gap={5}>
           <Profile profile={profile} />
-          <CurrentRooms listRooms={roomData} />
+          <CurrentRooms />
         </Grid>
         <MainPanel />
         <People />
