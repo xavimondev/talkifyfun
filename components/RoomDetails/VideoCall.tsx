@@ -1,5 +1,5 @@
-import { Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import React from 'react'
+import { Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import { Participant } from 'twilio-video'
 
 type Props = {

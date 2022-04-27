@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Heading, Input, Link, Text, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Heading, Link, Text, useColorModeValue } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-import { AddIc, ThreadIc } from 'components/Icons'
+import { ThreadIc } from 'components/Icons'
 import { RoomCall } from 'types/room'
 import AddRoom from 'components/Forms/AddRoom'
 

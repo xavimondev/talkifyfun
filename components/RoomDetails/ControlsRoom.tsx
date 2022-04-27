@@ -9,11 +9,6 @@ import {
 } from 'components/Icons'
 
 const ControlsRoom = () => {
-  // const dimensions = {
-  //   width: '50px',
-  //   height: '50px'
-  // }
-  // const isMuted =
   return (
     <>
       <Flex

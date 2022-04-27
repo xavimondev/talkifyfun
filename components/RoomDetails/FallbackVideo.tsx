@@ -1,7 +1,5 @@
 import { Avatar, Flex, Text, useBreakpointValue } from '@chakra-ui/react'
 
-import ControlsRoom from './ControlsRoom'
-
 const FallbackVideo = () => {
   const sizeAvatar = useBreakpointValue({
     base: 'sm',
