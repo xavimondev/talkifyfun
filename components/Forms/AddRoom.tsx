@@ -1,15 +1,12 @@
 import { useRef } from 'react'
 import { Box, Button, Input } from '@chakra-ui/react'
 
-import { RoomCall } from 'types/room'
 import { AddIc } from 'components/Icons'
+import { useRoomContext } from 'context/RoomContext'
 
-type Props = {
-  addRoom: (room: RoomCall) => void
-}
-
-const AddRoom = ({ addRoom }: Props) => {
+const AddRoom = () => {
   const roomRef = useRef<HTMLInputElement>(null)
+  const { addRoom } = useRoomContext()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

@@ -1,10 +1,10 @@
 import { Box, Flex, Heading, Link, Text, useColorModeValue } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-import { ThreadIc } from 'components/Icons'
 import { RoomCall } from 'types/room'
+import { useRoomContext } from 'context/RoomContext'
+import { ThreadIc } from 'components/Icons'
 import AddRoom from 'components/Forms/AddRoom'
-import useDashboard from 'hooks/useDashboard'
 
 type PropsRoom = {
   room: RoomCall
@@ -49,7 +49,7 @@ const Room = ({ room }: PropsRoom): JSX.Element => {
 
 const CurrentRooms = () => {
   const bg = useColorModeValue('blue.400', '#181b29')
-  const { listRooms, addRoom } = useDashboard()
+  const { listRooms } = useRoomContext()
 
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
@@ -60,7 +60,7 @@ const CurrentRooms = () => {
         </Heading>
       </Flex>
       <Flex direction='column' w='100%' gap={6}>
-        <AddRoom addRoom={addRoom} />
+        <AddRoom />
         <Flex direction='column' w='100%' gap={2}>
           {listRooms.map((room) => (
             <Room key={room.id} room={room} />
