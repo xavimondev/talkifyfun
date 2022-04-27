@@ -5,5 +5,5 @@ export interface RoomState {
   roomSelected: RoomCall | null
   addRoom: (room: RoomCall) => void
   selectRoom: (room: RoomCall) => void
-  findRoom: (room: string) => void
+  findRoom: (room: string) => RoomCall | undefined
 }
