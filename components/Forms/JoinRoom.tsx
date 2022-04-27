@@ -1,6 +1,6 @@
 import { Box, Button, Input } from '@chakra-ui/react'
 
-import { AddIc } from 'components/Icons'
+import { EnterRoomIc } from 'components/Icons'
 
 const FormNewRoom = () => {
   return (
@@ -17,17 +17,17 @@ const FormNewRoom = () => {
           type='text'
           name='name'
           border='1px solid #181b29'
-          placeholder='Enter room name'
+          placeholder='Please enter your room code to join'
           width='full'
         />
         <Button
           variant='solid'
           fontWeight='semibold'
           bg='red.600'
-          leftIcon={<AddIc />}
+          leftIcon={<EnterRoomIc />}
           _hover={{ bg: 'red.500' }}
         >
-          START MEETING
+          JOIN
         </Button>
       </form>
     </Box>
