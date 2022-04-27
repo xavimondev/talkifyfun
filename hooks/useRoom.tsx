@@ -20,7 +20,7 @@ const useRoom = (roomId: string, userId: User['id']) => {
 
     getToken(roomId, userId).then((token) => {
       Video.connect(token, {
-        name: 'hello'
+        name: roomId
       }).then((room) => {
         setRoom(room)
         room.on('participantConnected', participantConnected)

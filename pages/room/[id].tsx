@@ -1,10 +1,14 @@
 import { GetServerSideProps } from 'next'
-import { Participant } from 'twilio-video'
 import { User } from '@supabase/supabase-js'
+import { Flex, Grid } from '@chakra-ui/react'
 
-import { supabase } from 'services/config'
-import Member from 'components/Member'
 import useRoom from 'hooks/useRoom'
+import { supabase } from 'services/config'
+import PeopleConnected from 'components/RoomDetails/PeopleConnected'
+import HeaderRoom from 'components/RoomDetails/HeaderRoom'
+import VideoCall from 'components/RoomDetails/VideoCall'
+import FallbackVideo from 'components/RoomDetails/FallbackVideo'
+import Member from 'components/RoomDetails/Member'
 
 type Props = {
   userId: User['id']
@@ -16,28 +20,25 @@ type Props = {
 // CURRENT iwannaknowyu MAX_CAPACITY = 15
 
 const RoomDetails = ({ userId, roomId }: Props) => {
-  const { room, participants } = useRoom(roomId, userId)
-
-  const remoteParticipants = participants.map((participant: Participant) => (
-    <p key={participant.sid}>{participant.identity}</p>
-  ))
+  const { room, participants } = useRoom(userId, roomId)
 
   return (
-    <div className='room'>
-      <h2>Room: {room?.name}</h2>
-      <div className='local-participant'>
-        {room ? <p key={room.localParticipant.sid}>{room.localParticipant.identity}</p> : ''}
-      </div>
-      <h3>Remote Participants</h3>
-      <div className='remote-participants'>
-        {room && (
-          <>
-            <Member key={room.localParticipant.sid} member={room.localParticipant} />
-            {remoteParticipants}
-          </>
-        )}
-      </div>
-    </div>
+    <Flex className='room' direction='column' m={8} gap={6}>
+      <HeaderRoom title={'Charlando con midudev'} />
+      <Grid
+        gridTemplateColumns={{ base: '1fr', md: '2fr 1fr', lg: '2fr 1fr', xl: '3fr 1fr' }}
+        gridTemplateRows={{ base: '500px', lg: '550px', xl: '650px' }}
+        gap={6}
+      >
+        {/* <Member member={room?.localParticipant} />
+        <PeopleConnected participants={participants} /> */}
+        <VideoCall member={room?.localParticipant}>
+          {/* <FallbackVideo /> */}
+          {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
+        </VideoCall>
+        <PeopleConnected participants={participants} />
+      </Grid>
+    </Flex>
   )
 }
 

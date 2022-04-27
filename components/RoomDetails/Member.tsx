@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Box, Flex } from '@chakra-ui/react'
 import {
   AudioTrackPublication,
   LocalAudioTrack,
@@ -9,6 +10,8 @@ import {
   VideoTrackPublication
 } from 'twilio-video'
 
+import ControlsRoom from './ControlsRoom'
+
 type Props = {
   member: Participant
 }
@@ -17,7 +20,7 @@ type TrackPublication = VideoTrackPublication | AudioTrackPublication
 type MediaTrack = LocalVideoTrack | RemoteVideoTrack | LocalAudioTrack | RemoteAudioTrack | null
 
 const Member = ({ member }: Props) => {
-  console.log(member)
+  // console.log(member)
   const [videoTracks, setVideoTracks] = useState<any[]>([])
   const [audioTracks, setAudioTracks] = useState<any[]>([])
 
@@ -81,9 +84,35 @@ const Member = ({ member }: Props) => {
 
   return (
     <>
-      <h3>{member.identity}</h3>
-      <video ref={videoRef} autoPlay={true} />
-      <audio ref={audioRef} autoPlay={true} muted={false} />
+      <Flex
+        // position='relative'
+        direction='column'
+        width={{
+          base: '100%',
+          lg: '65%',
+          xl: '75%',
+          '2xl': '75%'
+        }}
+        height={{
+          base: '50%', // 0-48em
+          lg: '100%',
+          xl: '100%',
+          '2xl': '75%'
+        }}
+        gap={6}
+      >
+        <Box borderRadius={10} overflow='hidden' width='auto' height='auto'>
+          <video
+            ref={videoRef}
+            autoPlay={true}
+            style={{
+              width: '100%'
+            }}
+          />
+          <audio ref={audioRef} autoPlay={true} muted={false} />
+        </Box>
+        <ControlsRoom />
+      </Flex>
     </>
   )
 }
