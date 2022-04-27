@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Heading, Text } from '@chakra-ui/react'
 
 type Props = {
   roomName: string
