@@ -1,6 +1,8 @@
 import { Box, Flex, Heading, Link, Text, useColorModeValue } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
+import { showNotification } from 'utils/notify'
+import { copyTextToClipboard } from 'utils/copyClipboard'
 import { RoomCall } from 'types/room'
 import { useRoomContext } from 'context/RoomContext'
 import { ThreadIc } from 'components/Icons'
@@ -8,25 +10,18 @@ import AddRoom from 'components/Forms/AddRoom'
 
 type PropsRoom = {
   room: RoomCall
-  selectRoom: (room: RoomCall) => void
+  handleRoom: (room: RoomCall) => void
 }
 
-const Room = ({ room, selectRoom }: PropsRoom): JSX.Element => {
-  const { id, name, amountParticipants, shareableCode } = room
+const Room = ({ room, handleRoom }: PropsRoom): JSX.Element => {
+  const { id, name, amountParticipants } = room
+
   return (
     <Flex my={{ sm: '1rem', xl: '10px' }} alignItems='center' justifyContent='space-between'>
       <Flex direction='column'>
-        <NextLink href={`/room/${id}`} passHref>
-          <Link
-            _hover={{
-              textDecoration: 'none'
-            }}
-          >
-            <Text fontSize='md' color='white' fontWeight='bold'>
-              {name}
-            </Text>
-          </Link>
-        </NextLink>
+        <Text fontSize='md' color='white' fontWeight='bold' onClick={() => handleRoom(room)}>
+          {name}
+        </Text>
         <Text fontSize='sm' color='#a1a2a9' fontFamily='body' fontWeight='semibold' me='16px'>
           Participants: {amountParticipants}
         </Text>
@@ -40,7 +35,6 @@ const Room = ({ room, selectRoom }: PropsRoom): JSX.Element => {
           fontWeight='semibold'
           bg='red.600'
           _hover={{ bg: 'red.500' }}
-          onClick={() => selectRoom(room)}
         >
           JOIN
         </Link>
@@ -52,6 +46,14 @@ const Room = ({ room, selectRoom }: PropsRoom): JSX.Element => {
 const CurrentRooms = () => {
   const bg = useColorModeValue('blue.400', '#181b29')
   const { listRooms, selectRoom } = useRoomContext()
+
+  const handleRoom = async (room: RoomCall) => {
+    // Set status to define room selected
+    selectRoom(room)
+    // Copy to clipboard the shareableCode and then show notification
+    await copyTextToClipboard(room.shareableCode)
+    showNotification('shareable code copied to clipboard', 'success')
+  }
 
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
@@ -65,7 +67,7 @@ const CurrentRooms = () => {
         <AddRoom />
         <Flex direction='column' w='100%' gap={2}>
           {listRooms.map((room) => (
-            <Room key={room.id} room={room} selectRoom={selectRoom} />
+            <Room key={room.id} room={room} handleRoom={handleRoom} />
           ))}
         </Flex>
       </Flex>
