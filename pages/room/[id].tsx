@@ -14,9 +14,10 @@ import FallbackVideo from 'components/RoomDetails/FallbackVideo'
 import Member from 'components/RoomDetails/Member'
 import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
+import { getUserProfile } from 'utils/getUserProfile'
 
 type Props = {
-  userId: User['id']
+  profile: any
   roomId: string
 }
 
@@ -24,12 +25,12 @@ type Props = {
 // DEFAULT TWILIO CAPACITY = 50
 // CURRENT iwannaknowyu MAX_CAPACITY = 15
 
-const RoomDetails = ({ userId, roomId }: Props) => {
-  // const [participants, setParticipants] = useState<Participant[]>([])
+const RoomDetails = ({ profile, roomId }: Props) => {
   const { room, setRoom } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
-
+  //Information of current user logged in
+  const { id: userId, avatar_url, full_name, email } = profile
   useEffect(() => {
     // Getting token for first time and then use it to connect to room
     getToken(roomId, userId).then((token) => {
@@ -37,7 +38,6 @@ const RoomDetails = ({ userId, roomId }: Props) => {
         name: roomId
       }).then((room) => {
         setRoom(room)
-        // leaveRoom()
       })
     })
 
@@ -60,7 +60,11 @@ const RoomDetails = ({ userId, roomId }: Props) => {
     <>
       <LayoutRoomDetails>
         <VideoCall member={room?.localParticipant}>
-          {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
+          {room ? (
+            <Member member={room?.localParticipant} />
+          ) : (
+            <FallbackVideo avatar_url={avatar_url} full_name={full_name} />
+          )}
         </VideoCall>
         <PeopleConnected participants={participants} />
       </LayoutRoomDetails>
@@ -70,12 +74,12 @@ const RoomDetails = ({ userId, roomId }: Props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req)
-
+  const profile = getUserProfile(user)
   if (!user) {
     return { redirect: { destination: '/auth/login', permanent: false } }
   }
 
-  return { props: { userId: user.id, roomId: query.id } }
+  return { props: { profile: profile, roomId: query.id } }
 }
 
 export default RoomDetails

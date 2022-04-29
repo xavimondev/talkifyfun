@@ -25,7 +25,7 @@ const useParticipant = () => {
       room?.off('participantConnected', participantConnected)
       room?.off('participantDisconnected', participantDisconnected)
     }
-  }, []) //eslint-disable-line react-hooks/exhaustive-deps
+  }, [room])
 
   return {
     participants

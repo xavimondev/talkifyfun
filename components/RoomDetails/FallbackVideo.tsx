@@ -1,6 +1,11 @@
 import { Avatar, Flex, Text, useBreakpointValue } from '@chakra-ui/react'
 
-const FallbackVideo = () => {
+type Props = {
+  full_name: string
+  avatar_url: string
+}
+
+const FallbackVideo = ({ full_name, avatar_url }: Props) => {
   const sizeAvatar = useBreakpointValue({
     base: 'sm',
     md: 'md',
@@ -28,7 +33,7 @@ const FallbackVideo = () => {
         gap={8}
         bg='#1A202C'
       >
-        <Avatar size={sizeAvatar} name='Xavi Alfaro' />
+        <Avatar size={sizeAvatar} name={full_name} src={avatar_url} />
         <Text
           fontSize={{
             base: 'md',
@@ -37,7 +42,7 @@ const FallbackVideo = () => {
           }}
           fontWeight='semibold'
         >
-          Xavi Alfaro
+          {full_name}
         </Text>
         {/* <ControlsRoom /> */}
       </Flex>
