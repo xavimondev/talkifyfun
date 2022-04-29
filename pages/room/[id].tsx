@@ -59,7 +59,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   return (
     <>
       <LayoutRoomDetails>
-        <VideoCall member={room?.localParticipant}>
+        <VideoCall full_name={full_name}>
           {room ? (
             <Member member={room?.localParticipant} />
           ) : (
