@@ -1,9 +1,13 @@
+import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 import { User } from '@supabase/supabase-js'
+import Video, { Room } from 'twilio-video'
 
-import useRoom from 'hooks/useRoom'
-import { useRoomContext } from 'context/RoomContext'
+import { getToken } from 'utils/getToken'
 import { supabase } from 'services/config'
+import { useVideoContext } from 'context/VideoContext'
+import { useRoomContext } from 'context/RoomContext'
+import useParticipant from 'hooks/useParticipants'
 import PeopleConnected from 'components/RoomDetails/PeopleConnected'
 import VideoCall from 'components/RoomDetails/VideoCall'
 import FallbackVideo from 'components/RoomDetails/FallbackVideo'
@@ -21,18 +25,41 @@ type Props = {
 // CURRENT iwannaknowyu MAX_CAPACITY = 15
 
 const RoomDetails = ({ userId, roomId }: Props) => {
-  const { room, participants } = useRoom(userId, roomId)
-
+  // const [participants, setParticipants] = useState<Participant[]>([])
+  const { room, setRoom } = useVideoContext()
+  const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
 
-  // console.log(roomSelected)
+  useEffect(() => {
+    // Getting token for first time and then use it to connect to room
+    getToken(roomId, userId).then((token) => {
+      Video.connect(token, {
+        name: roomId
+      }).then((room) => {
+        setRoom(room)
+        // leaveRoom()
+      })
+    })
+
+    return () => {
+      setRoom((prevRoom: Room | null) => {
+        if (prevRoom) {
+          prevRoom.localParticipant.tracks.forEach((trackPublication: any) => {
+            trackPublication.track.stop()
+          })
+          prevRoom.disconnect()
+        }
+        return null
+      })
+    }
+  }, []) //eslint-disable-line react-hooks/exhaustive-deps
+
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
 
   return (
     <>
       <LayoutRoomDetails>
         <VideoCall member={room?.localParticipant}>
-          {/* <FallbackVideo /> */}
           {room ? <Member member={room?.localParticipant} /> : <FallbackVideo />}
         </VideoCall>
         <PeopleConnected participants={participants} />

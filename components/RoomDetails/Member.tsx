@@ -10,8 +10,8 @@ type Props = {
 }
 
 const Member = ({ member }: Props) => {
-  // console.log(member)
   const { audioRef, videoRef } = useTrack(member)
+
   return (
     <>
       <Flex

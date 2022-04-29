@@ -1,14 +1,21 @@
-import { ButtonGroup, Flex, IconButton, Text } from '@chakra-ui/react'
+import { ButtonGroup, Flex, IconButton, Link, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 import {
   BreakRoomIc,
+  CameraDisableIc,
+  CameraIc,
   LeaveRoomIc,
   MicrophoneIc,
   MicrophoneMutedIc,
   ScreenShareIc
 } from 'components/Icons'
+import { useVideoContext } from 'context/VideoContext'
 
 const ControlsRoom = () => {
+  const { toggleUserAudio, toggleUserVideo, isAudioEnabled, isVideoEnabled } = useVideoContext()
+  const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
+  const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
   return (
     <>
       <Flex
@@ -25,19 +32,23 @@ const ControlsRoom = () => {
           08:03
         </Text>
         <ButtonGroup orientation='horizontal' spacing={3}>
-          <IconButton size='md' aria-label='muted' icon={<MicrophoneIc />} />
-          <IconButton size='md' aria-label='muted' icon={<ScreenShareIc />} />
-          <IconButton
-            size='md'
-            bg='red.500'
-            _hover={{
-              bg: 'red.500'
-            }}
-            aria-label='muted'
-            icon={<LeaveRoomIc />}
-          />
-          <IconButton size='md' aria-label='muted' icon={<MicrophoneMutedIc />} />
-          <IconButton size='md' aria-label='muted' icon={<BreakRoomIc />} />
+          <IconButton size='md' aria-label='audio' icon={iconAudio} onClick={toggleUserAudio} />
+          <IconButton size='md' aria-label='video' icon={iconVideo} onClick={toggleUserVideo} />
+          <NextLink href='/home' passHref>
+            <Link>
+              <IconButton
+                size='md'
+                bg='red.500'
+                _hover={{
+                  bg: 'red.500'
+                }}
+                aria-label='muted'
+                icon={<LeaveRoomIc />}
+              />
+            </Link>
+          </NextLink>
+          <IconButton size='md' aria-label='screen share' icon={<ScreenShareIc />} />
+          <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} />
         </ButtonGroup>
       </Flex>
     </>
