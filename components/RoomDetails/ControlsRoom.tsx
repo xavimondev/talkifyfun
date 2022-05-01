@@ -8,11 +8,16 @@ import {
   LeaveRoomIc,
   MicrophoneIc,
   MicrophoneMutedIc,
+  PeopleIc,
   ScreenShareIc
 } from 'components/Icons'
 import { useVideoContext } from 'context/VideoContext'
 
-const ControlsRoom = () => {
+type Props = {
+  onOpen: () => void
+}
+
+const ControlsRoom = ({ onOpen }: Props) => {
   const { toggleUserAudio, toggleUserVideo, isAudioEnabled, isVideoEnabled } = useVideoContext()
   const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
   const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
@@ -46,6 +51,7 @@ const ControlsRoom = () => {
               />
             </Link>
           </NextLink>
+          <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
           <IconButton size='md' aria-label='screen share' icon={<ScreenShareIc />} />
           <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} />
         </ButtonGroup>

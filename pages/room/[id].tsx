@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-import { User } from '@supabase/supabase-js'
 import Video, { Room } from 'twilio-video'
+import { useDisclosure } from '@chakra-ui/react'
 
 import { getToken } from 'utils/getToken'
 import { supabase } from 'services/config'
@@ -16,6 +16,7 @@ import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
 import { getUserProfile } from 'utils/getUserProfile'
 import ControlsRoom from 'components/RoomDetails/ControlsRoom'
+import CustomModal from 'components/Modal'
 
 type Props = {
   profile: any
@@ -30,6 +31,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { room, setRoom } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   //Information of current user logged in
   const { id: userId, avatar_url, full_name } = profile
   useEffect(() => {
@@ -74,9 +76,11 @@ const RoomDetails = ({ profile, roomId }: Props) => {
           )}
         </VideoCall>
         {/* Modified! */}
-        {/* <PeopleConnected participants={participants} /> */}
       </LayoutRoomDetails>
-      {room && <ControlsRoom />}
+      <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
+        <PeopleConnected participants={participants} />
+      </CustomModal>
+      {room && <ControlsRoom onOpen={onOpen} />}
     </>
   )
 }
