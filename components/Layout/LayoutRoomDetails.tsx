@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 
 import { useRoomContext } from 'context/RoomContext'
 import Header from 'components/Header'
