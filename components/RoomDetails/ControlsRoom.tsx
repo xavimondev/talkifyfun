@@ -1,4 +1,4 @@
-import { ButtonGroup, Flex, IconButton, Link, Text } from '@chakra-ui/react'
+import { ButtonGroup, Flex, IconButton, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 import {
