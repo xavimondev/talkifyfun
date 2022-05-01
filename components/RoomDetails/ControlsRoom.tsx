@@ -19,16 +19,15 @@ const ControlsRoom = () => {
   return (
     <>
       <Flex
-        position='absolute'
-        bottom={24}
-        borderRadius={20}
-        p={3}
-        bg='gray.700'
-        gap={6}
+        position='sticky'
+        bottom={0}
+        p={4}
+        bg='gray.900'
+        gap={10}
         align='center'
         justify='center'
       >
-        <Text color='red.500' fontWeight='bold' fontSize='md'>
+        <Text color='red.500' fontWeight='bold' fontSize='lg'>
           08:03
         </Text>
         <ButtonGroup orientation='horizontal' spacing={3}>

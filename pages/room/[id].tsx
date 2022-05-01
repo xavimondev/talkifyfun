@@ -15,6 +15,7 @@ import Member from 'components/RoomDetails/Member'
 import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
 import { getUserProfile } from 'utils/getUserProfile'
+import ControlsRoom from 'components/RoomDetails/ControlsRoom'
 
 type Props = {
   profile: any
@@ -30,7 +31,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   //Information of current user logged in
-  const { id: userId, avatar_url, full_name, email } = profile
+  const { id: userId, avatar_url, full_name } = profile
   useEffect(() => {
     // Getting token for first time and then use it to connect to room
     getToken(roomId, userId).then((token) => {
@@ -60,14 +61,22 @@ const RoomDetails = ({ profile, roomId }: Props) => {
     <>
       <LayoutRoomDetails>
         <VideoCall full_name={full_name}>
+          {/* <FallbackVideo avatar_url={avatar_url} full_name={full_name} /> */}
           {room ? (
-            <Member member={room?.localParticipant} />
+            <>
+              <Member member={room?.localParticipant} />
+              {participants.map((participant) => (
+                <Member key={participant.sid} member={participant} />
+              ))}
+            </>
           ) : (
             <FallbackVideo avatar_url={avatar_url} full_name={full_name} />
           )}
         </VideoCall>
-        <PeopleConnected participants={participants} />
+        {/* Modified! */}
+        {/* <PeopleConnected participants={participants} /> */}
       </LayoutRoomDetails>
+      {room && <ControlsRoom />}
     </>
   )
 }

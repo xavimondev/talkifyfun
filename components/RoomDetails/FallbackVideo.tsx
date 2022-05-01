@@ -19,16 +19,8 @@ const FallbackVideo = ({ full_name, avatar_url }: Props) => {
         overflow='hidden'
         justifyContent='center'
         alignItems='center'
-        width={{
-          base: '100%',
-          lg: '65%',
-          xl: '75%'
-        }}
-        height={{
-          base: '50%', // 0-48em
-          lg: '100%',
-          xl: '100%'
-        }}
+        width='full'
+        height='full'
         direction='column'
         gap={8}
         bg='#1A202C'

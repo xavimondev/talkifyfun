@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Grid } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import { useRoomContext } from 'context/RoomContext'
 import Header from 'components/Header'
@@ -17,15 +17,9 @@ const LayoutRoomDetails = ({ children }: Props) => {
         title={`Room: ${roomSelected?.name}`}
         content={`Welcome to the room 🙂: ${roomSelected?.name}`}
       />
-      <Flex className='room' direction='column' m={8} gap={6}>
+      <Flex className='room' direction='column' m={8} gap={6} height='100vh'>
         <HeaderRoom />
-        <Grid
-          gridTemplateColumns={{ base: '1fr', md: '2fr 1fr', lg: '2fr 1fr', xl: '3fr 1fr' }}
-          gridTemplateRows={{ base: '500px', lg: '550px', xl: '650px' }}
-          gap={6}
-        >
-          {children}
-        </Grid>
+        <Box height='100%'>{children}</Box>
       </Flex>
     </>
   )
