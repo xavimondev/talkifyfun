@@ -3,6 +3,7 @@ import { Box, Button, Input } from '@chakra-ui/react'
 
 import { AddIc } from 'components/Icons'
 import { useRoomContext } from 'context/RoomContext'
+import { getShareableRandomCode } from 'utils/getShareableCode'
 
 const AddRoom = () => {
   const roomRef = useRef<HTMLInputElement>(null)
@@ -17,7 +18,7 @@ const AddRoom = () => {
       id,
       name: roomName,
       amountParticipants: 0,
-      shareableCode: 'unknown-code'
+      shareableCode: getShareableRandomCode(id)
     }
     addRoom(newRoom)
     roomRef.current.value = ''
