@@ -3,7 +3,7 @@ import { Flex } from '@chakra-ui/react'
 import useAuth from 'hooks/useAuth'
 import { Profile as UserProfile } from 'types'
 
-import CurrentRooms from './CurrentRooms'
+import RoomsAvailable from './RoomsAvailable'
 import Profile from './Profile'
 import MainPanel from './MainPanel'
 
@@ -28,7 +28,7 @@ const Dashboard = ({ profile }: Props) => {
         height='full'
       >
         <Profile profile={profile} />
-        <CurrentRooms />
+        <RoomsAvailable />
       </Flex>
       <MainPanel />
     </>
