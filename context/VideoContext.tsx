@@ -3,27 +3,30 @@ import { Room } from 'twilio-video'
 
 import { VideoState } from 'types/context'
 
+import { useRoomContext } from './RoomContext'
+
 const VideoContext = createContext<VideoState | null>(null)
 
 type Props = {
   children: React.ReactNode
 }
 
+const INITIAL_STATUS_MEDIA = true
+
 export const VideoProvider = ({ children }: Props) => {
   const [room, setRoom] = useState<Room | null>(null)
+  const { unsetSelectedRoom } = useRoomContext()
+  const [isAudioEnabled, setIsAudioEnabled] = useState(INITIAL_STATUS_MEDIA)
+  const [isVideoEnabled, setIsVideoEnabled] = useState(INITIAL_STATUS_MEDIA)
 
-  const [isAudioEnabled, setIsAudioEnabled] = useState(true)
-  const [isVideoEnabled, setIsVideoEnabled] = useState(true)
-
-  /* Removing video and audio elements from DOM when user leave of the room */
   const leaveRoom = () => {
-    room?.on('disconnected', (room) => {
-      // Detach the local media elements
-      room.localParticipant.tracks.forEach((publication: any) => {
-        const attachedElements = publication.track.detach()
-        attachedElements.forEach((element: any) => element.remove())
-      })
-    })
+    setTimeout(() => {
+      // Reset media values to initial state
+      setIsAudioEnabled(INITIAL_STATUS_MEDIA)
+      setIsVideoEnabled(INITIAL_STATUS_MEDIA)
+      // Clear state room
+      unsetSelectedRoom()
+    }, 1000)
   }
 
   /* Enable o disable audio */

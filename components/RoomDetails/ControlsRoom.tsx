@@ -18,7 +18,8 @@ type Props = {
 }
 
 const ControlsRoom = ({ onOpen }: Props) => {
-  const { toggleUserAudio, toggleUserVideo, isAudioEnabled, isVideoEnabled } = useVideoContext()
+  const { toggleUserAudio, toggleUserVideo, isAudioEnabled, isVideoEnabled, leaveRoom } =
+    useVideoContext()
   const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
   const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
   return (
@@ -39,17 +40,16 @@ const ControlsRoom = ({ onOpen }: Props) => {
           <IconButton size='md' aria-label='audio' icon={iconAudio} onClick={toggleUserAudio} />
           <IconButton size='md' aria-label='video' icon={iconVideo} onClick={toggleUserVideo} />
           <NextLink href='/home' passHref>
-            <Link>
-              <IconButton
-                size='md'
-                bg='red.500'
-                _hover={{
-                  bg: 'red.500'
-                }}
-                aria-label='muted'
-                icon={<LeaveRoomIc />}
-              />
-            </Link>
+            <IconButton
+              size='md'
+              bg='red.500'
+              _hover={{
+                bg: 'red.500'
+              }}
+              aria-label='muted'
+              icon={<LeaveRoomIc />}
+              onClick={leaveRoom}
+            />
           </NextLink>
           <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
           <IconButton size='md' aria-label='screen share' icon={<ScreenShareIc />} />
