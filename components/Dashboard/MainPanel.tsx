@@ -1,4 +1,4 @@
-import { Grid, useColorModeValue } from '@chakra-ui/react'
+import { Flex, useColorModeValue } from '@chakra-ui/react'
 
 import JoinRoom from '../Forms/JoinRoom'
 
@@ -8,10 +8,10 @@ const MainPanel = () => {
   const bg = useColorModeValue('blue.400', '#181b29')
   return (
     <>
-      <Grid gap={4} bg={bg} rounded='lg' p={6}>
+      <Flex gap={4} bg={bg} rounded='lg' p={6} direction='column' width='100%'>
         <JoinRoom />
         <PanelActivities />
-      </Grid>
+      </Flex>
     </>
   )
 }

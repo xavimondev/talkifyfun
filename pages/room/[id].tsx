@@ -34,26 +34,29 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   //Information of current user logged in
   const { id: userId, avatar_url, full_name } = profile
-  useEffect(() => {
-    // Getting token for first time and then use it to connect to room
-    getToken(roomId, userId).then((token) => {
-      Video.connect(token, {
-        name: roomId
-      }).then((room) => {
-        setRoom(room)
-      })
-    })
 
-    return () => {
-      setRoom((prevRoom: Room | null) => {
-        if (prevRoom) {
-          prevRoom.localParticipant.tracks.forEach((trackPublication: any) => {
-            trackPublication.track.stop()
-          })
-          prevRoom.disconnect()
-        }
-        return null
+  useEffect(() => {
+    if (roomSelected) {
+      // Getting token for first time and then use it to connect to room
+      getToken(roomId, userId).then((token) => {
+        Video.connect(token, {
+          name: roomId
+        }).then((room) => {
+          setRoom(room)
+        })
       })
+
+      return () => {
+        setRoom((prevRoom: Room | null) => {
+          if (prevRoom) {
+            prevRoom.localParticipant.tracks.forEach((trackPublication: any) => {
+              trackPublication.track.stop()
+            })
+            prevRoom.disconnect()
+          }
+          return null
+        })
+      }
     }
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
@@ -75,12 +78,11 @@ const RoomDetails = ({ profile, roomId }: Props) => {
             <FallbackVideo avatar_url={avatar_url} full_name={full_name} />
           )}
         </VideoCall>
-        {/* Modified! */}
       </LayoutRoomDetails>
+      {room && <ControlsRoom onOpen={onOpen} />}
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
       </CustomModal>
-      {room && <ControlsRoom onOpen={onOpen} />}
     </>
   )
 }

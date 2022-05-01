@@ -60,16 +60,16 @@ const CurrentRooms = () => {
   }
 
   return (
-    <Box w='full' bg={bg} rounded='lg' p={6}>
+    <Box w='full' h='full' bg={bg} rounded='lg' p={6}>
       <Flex direction='row' alignItems='center' mb={6}>
         <ThreadIc />
         <Heading fontSize='xl' ml={4}>
           Rooms available
         </Heading>
       </Flex>
-      <Flex direction='column' w='100%' gap={6}>
+      <Flex direction='column' gap={6}>
         <AddRoom />
-        <Flex direction='column' w='100%' gap={2}>
+        <Flex direction='column' gap={2}>
           {listRooms.map((room) => (
             <Room key={room.id} room={room} handleRoom={handleRoom} copyCode={copyCode} />
           ))}

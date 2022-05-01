@@ -11,16 +11,31 @@ type Props = {
 const Profile = ({ profile }: Props) => {
   const { full_name, email, avatar_url } = profile
   const bg = useColorModeValue('blue.400', '#181b29')
+
   return (
     <Box w='full' bg={bg} rounded='lg' p={6}>
       <Flex direction='column' w='100%' gap={4}>
-        <Flex direction='row' alignItems='center' gap={4}>
+        <Flex
+          direction={{
+            base: 'column',
+            md: 'row'
+          }}
+          alignItems='center'
+          gap={4}
+        >
           <Avatar size='xl' name={full_name} src={avatar_url} />
-          <Flex direction='column' gap={2}>
-            <Text fontSize='md' color='white' fontWeight='bold'>
+          <Flex
+            direction='column'
+            gap={2}
+            alignItems={{
+              base: 'center',
+              md: 'flex-start'
+            }}
+          >
+            <Text fontSize='md' color='white' fontWeight='bold' isTruncated>
               {full_name}
             </Text>
-            <Text fontSize='md' color='white' fontWeight='bold'>
+            <Text fontSize='md' color='white' fontWeight='bold' isTruncated>
               {email}
             </Text>
           </Flex>
