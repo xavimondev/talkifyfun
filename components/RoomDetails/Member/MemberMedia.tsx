@@ -1,18 +1,17 @@
 import { Box } from '@chakra-ui/react'
-import { Participant } from 'twilio-video'
 
 import useTrack from 'hooks/useTrack'
 
 type Props = {
-  member: Participant
+  videoTrack: any
+  audioTrack: any
 }
 
-const Member = ({ member }: Props) => {
-  const { audioRef, videoRef } = useTrack(member)
+const MemberMedia = ({ videoTrack, audioTrack }: Props) => {
+  const { videoRef, audioRef } = useTrack(videoTrack, audioTrack)
 
   return (
     <>
-      {/* paddingTop='56.25%' position='relative' */}
       <Box borderRadius={10} width='100%' height='100%'>
         <video
           ref={videoRef}
@@ -32,4 +31,4 @@ const Member = ({ member }: Props) => {
   )
 }
 
-export default Member
+export default MemberMedia

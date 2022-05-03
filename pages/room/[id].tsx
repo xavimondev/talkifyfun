@@ -3,29 +3,26 @@ import { GetServerSideProps } from 'next'
 import Video, { Room } from 'twilio-video'
 import { useDisclosure } from '@chakra-ui/react'
 
+import { getUserProfile } from 'utils/getUserProfile'
 import { getToken } from 'utils/getToken'
 import { supabase } from 'services/config'
+import useParticipant from 'hooks/useParticipants'
 import { useVideoContext } from 'context/VideoContext'
 import { useRoomContext } from 'context/RoomContext'
-import useParticipant from 'hooks/useParticipants'
 import PeopleConnected from 'components/RoomDetails/PeopleConnected'
 import VideoCall from 'components/RoomDetails/VideoCall'
-import FallbackVideo from 'components/RoomDetails/FallbackVideo'
 import Member from 'components/RoomDetails/Member'
 import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
-import { getUserProfile } from 'utils/getUserProfile'
 import ControlsRoom from 'components/RoomDetails/ControlsRoom'
 import CustomModal from 'components/Modal'
+import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
 
 type Props = {
   profile: any
   roomId: string
 }
-
 // Set video call capacity: https://www.twilio.com/console/video/configure
-// DEFAULT TWILIO CAPACITY = 50
-// CURRENT iwannaknowyu MAX_CAPACITY = 15
 
 const RoomDetails = ({ profile, roomId }: Props) => {
   const { room, setRoom } = useVideoContext()
@@ -33,7 +30,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
   //Information of current user logged in
-  const { id: userId, avatar_url, full_name } = profile
+  const { id: userId, full_name } = profile
 
   useEffect(() => {
     if (roomSelected) {
@@ -66,20 +63,18 @@ const RoomDetails = ({ profile, roomId }: Props) => {
     <>
       <LayoutRoomDetails>
         <VideoCall full_name={full_name}>
-          {/* <FallbackVideo avatar_url={avatar_url} full_name={full_name} /> */}
-          {room ? (
+          {room && (
             <>
+              {/* This is local member  */}
               <Member member={room?.localParticipant} />
-              {participants.map((participant) => (
-                <Member key={participant.sid} member={participant} />
-              ))}
+              {/* List of remote members */}
+              <ListRemoteMembers participants={participants} />
             </>
-          ) : (
-            <FallbackVideo avatar_url={avatar_url} full_name={full_name} />
           )}
         </VideoCall>
       </LayoutRoomDetails>
       {room && <ControlsRoom onOpen={onOpen} />}
+      {/* Modal for showing lists of members */}
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
       </CustomModal>
