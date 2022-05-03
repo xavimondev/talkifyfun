@@ -7,11 +7,13 @@ type PropsUserConnected = {
 }
 
 const UserConnected = ({ name, avatarUrl }: PropsUserConnected): JSX.Element => {
+  const full_name = name?.split('|')[1]
+
   return (
     <Flex alignItems='center'>
       <Avatar size='sm' mr='5' name={name} src={avatarUrl} />
       <Text fontSize='md' color='white' fontWeight='semibold'>
-        {name}
+        {full_name}
       </Text>
     </Flex>
   )

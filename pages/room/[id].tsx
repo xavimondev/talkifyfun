@@ -31,6 +31,9 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   //Information of current user logged in
   const { id, full_name } = profile
+
+  // This userId must be less than 128 characters cause by twilio policies
+  // Check: https://github.com/twilio/twilio-video.js/issues/221
   const userId = id + '|' + full_name
 
   useEffect(() => {
