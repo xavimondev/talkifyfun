@@ -9,19 +9,17 @@ import FallbackVideo from '../FallbackVideo'
 
 type Props = {
   member: Participant
-  full_name: string
-  avatar_url: string
   children: React.ReactNode
 }
 
-const MemberInfo = ({ member, full_name, avatar_url, children }: Props) => {
+const MemberInfo = ({ member, children }: Props) => {
   const { getPublicationsByTrack } = usePublications(member)
   const videoPublication = getPublicationsByTrack('video')
   const isVideoEnabled = useMemberTrack(videoPublication)
 
   return (
     <Box w='full' h='full'>
-      {!isVideoEnabled && <FallbackVideo full_name={full_name} avatar_url={avatar_url} />}
+      {!isVideoEnabled && <FallbackVideo userIdentity={member.identity} />}
       {isVideoEnabled && children}
     </Box>
   )

@@ -11,7 +11,7 @@ import { useVideoContext } from 'context/VideoContext'
 import { useRoomContext } from 'context/RoomContext'
 import PeopleConnected from 'components/RoomDetails/PeopleConnected'
 import VideoCall from 'components/RoomDetails/VideoCall'
-import Member from 'components/RoomDetails/Member'
+import Member from 'components/RoomDetails/Member/'
 import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
 import ControlsRoom from 'components/RoomDetails/ControlsRoom'
@@ -30,7 +30,8 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
   //Information of current user logged in
-  const { id: userId, full_name } = profile
+  const { id, full_name } = profile
+  const userId = id + '|' + full_name
 
   useEffect(() => {
     if (roomSelected) {
@@ -74,7 +75,6 @@ const RoomDetails = ({ profile, roomId }: Props) => {
         </VideoCall>
       </LayoutRoomDetails>
       {room && <ControlsRoom onOpen={onOpen} />}
-      {/* Modal for showing lists of members */}
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
       </CustomModal>

@@ -9,7 +9,7 @@ type Props = {
 
 const Member = ({ member }: Props) => {
   return (
-    <MemberInfo member={member} full_name={'Test Avatar'} avatar_url={''}>
+    <MemberInfo member={member}>
       <MemberTrack member={member} />
     </MemberInfo>
   )

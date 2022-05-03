@@ -1,17 +1,19 @@
 import { Avatar, Flex, Text, useBreakpointValue } from '@chakra-ui/react'
 
 type Props = {
-  full_name: string
-  avatar_url: string
+  userIdentity: string
 }
 
-const FallbackVideo = ({ full_name, avatar_url }: Props) => {
+const FallbackVideo = ({ userIdentity }: Props) => {
+  // User identity seems like: 3094809384-23232-232323|Mi name
+  const full_name = userIdentity?.split('|')[1]
   const sizeAvatar = useBreakpointValue({
     base: 'sm',
     md: 'md',
     lg: 'xl',
     xl: '2xl'
   })
+
   return (
     <>
       <Flex
@@ -25,7 +27,7 @@ const FallbackVideo = ({ full_name, avatar_url }: Props) => {
         gap={8}
         bg='#1A202C'
       >
-        <Avatar size={sizeAvatar} name={full_name} src={avatar_url} />
+        <Avatar name={full_name} size={sizeAvatar} />
         <Text
           fontSize={{
             base: 'md',
@@ -36,7 +38,6 @@ const FallbackVideo = ({ full_name, avatar_url }: Props) => {
         >
           {full_name}
         </Text>
-        {/* <ControlsRoom /> */}
       </Flex>
     </>
   )
