@@ -18,8 +18,15 @@ type Props = {
 }
 
 const ControlsRoom = ({ onOpen }: Props) => {
-  const { toggleUserAudio, toggleUserVideo, isAudioEnabled, isVideoEnabled, leaveRoom } =
-    useVideoContext()
+  const {
+    toggleUserAudio,
+    toggleUserVideo,
+    isAudioEnabled,
+    isVideoEnabled,
+    leaveRoom,
+    screenShare,
+    isSharing
+  } = useVideoContext()
   const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
   const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
   return (
@@ -52,7 +59,13 @@ const ControlsRoom = ({ onOpen }: Props) => {
             />
           </NextLink>
           <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
-          <IconButton size='md' aria-label='screen share' icon={<ScreenShareIc />} />
+          <IconButton
+            size='md'
+            aria-label='screen share'
+            icon={<ScreenShareIc />}
+            onClick={screenShare}
+            disabled={isSharing}
+          />
           <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} />
         </ButtonGroup>
       </Flex>

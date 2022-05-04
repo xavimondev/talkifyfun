@@ -17,6 +17,7 @@ import NotRoomFound from 'components/Errors/NotRoomFound'
 import ControlsRoom from 'components/RoomDetails/ControlsRoom'
 import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
+import ScreenShared from 'components/RoomDetails/ScreenShared'
 
 type Props = {
   profile: any
@@ -25,7 +26,7 @@ type Props = {
 // Set video call capacity: https://www.twilio.com/console/video/configure
 
 const RoomDetails = ({ profile, roomId }: Props) => {
-  const { room, setRoom } = useVideoContext()
+  const { room, setRoom, isSharing, screenTrack } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -62,10 +63,11 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
-
+  console.log('Screen track from room page', { screenTrack, isSharing })
   return (
     <>
       <LayoutRoomDetails>
+        {isSharing && <ScreenShared />}
         <VideoCall full_name={full_name}>
           {room && (
             <>

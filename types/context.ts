@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { Room } from 'twilio-video'
+import { LocalVideoTrack, Room } from 'twilio-video'
 
 import { RoomCall } from 'types/room'
 
@@ -15,12 +15,12 @@ export interface RoomState {
 export interface VideoState {
   room: Room | null
   setRoom: Dispatch<SetStateAction<Room | null>>
-  // participants: Participant[]
-  // participantConnected: (participant: Participant) => void
-  // participantDisconnected: (participant: Participant) => void
   leaveRoom: () => void
   toggleUserAudio: () => void
   toggleUserVideo: () => void
   isAudioEnabled: boolean
   isVideoEnabled: boolean
+  isSharing: boolean
+  screenTrack: LocalVideoTrack | null
+  screenShare: () => void
 }
