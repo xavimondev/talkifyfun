@@ -2,7 +2,6 @@ import { ButtonGroup, Flex, IconButton, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 import {
-  BreakRoomIc,
   CameraDisableIc,
   CameraIc,
   LeaveRoomIc,
@@ -66,7 +65,8 @@ const ControlsRoom = ({ onOpen }: Props) => {
             onClick={screenShare}
             disabled={isSharing}
           />
-          <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} />
+          {/* TODO: Launch with v2 */}
+          {/* <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} /> */}
         </ButtonGroup>
       </Flex>
     </>

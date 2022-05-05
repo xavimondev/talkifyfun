@@ -20,7 +20,7 @@ const MemberInfo = ({ member, children }: Props) => {
   return (
     <Box w='full' h='full'>
       {!isVideoEnabled && <FallbackVideo userIdentity={member.identity} />}
-      {isVideoEnabled && children}
+      {children}
     </Box>
   )
 }

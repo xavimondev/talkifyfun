@@ -17,7 +17,6 @@ import NotRoomFound from 'components/Errors/NotRoomFound'
 import ControlsRoom from 'components/RoomDetails/ControlsRoom'
 import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
-import ScreenShared from 'components/RoomDetails/ScreenShared'
 
 type Props = {
   profile: any

@@ -59,11 +59,14 @@ export const VideoProvider = ({ children }: Props) => {
     if (!room || !room.localParticipant) return
     if (isVideoEnabled) {
       room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.disable()
+        // If someone is sharing its screen and turn off its camera, it will continue sharing the screen
+        // For that I just disabled video track
+        if (screenTrack?.id !== publication.track.id) publication.track.disable()
       })
     } else {
       room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.enable()
+        // I just disabled video track
+        if (screenTrack?.id !== publication.track.id) publication.track.enable()
       })
     }
     setIsVideoEnabled(!isVideoEnabled)

@@ -6,9 +6,9 @@ type Props = {
 }
 
 const ScreenShared = ({ screenTrack }: Props) => {
+  console.log('Sharing with', screenTrack)
   const screenRef = useRef<HTMLVideoElement>(null)
   // const bg = useColorModeValue('blue.400', '#181b29')
-  // console.log('screenTrack <ScreenShared />', screenTrack)
 
   useEffect(() => {
     // attach the screen track to the video element
