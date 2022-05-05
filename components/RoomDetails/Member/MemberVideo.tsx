@@ -7,7 +7,7 @@ type Props = {
   audioTrack: any
 }
 
-const MemberMedia = ({ videoTrack, audioTrack }: Props) => {
+const MemberVideo = ({ videoTrack, audioTrack }: Props) => {
   const { videoRef, audioRef } = useTrack(videoTrack, audioTrack)
 
   return (
@@ -31,4 +31,4 @@ const MemberMedia = ({ videoTrack, audioTrack }: Props) => {
   )
 }
 
-export default MemberMedia
+export default MemberVideo

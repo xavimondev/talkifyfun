@@ -1,17 +1,19 @@
 import { useRef, useEffect } from 'react'
 import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 
-import { useVideoContext } from 'context/VideoContext'
+type Props = {
+  screenTrack: any
+}
 
-const ScreenShared = () => {
-  const { screenTrack } = useVideoContext()
+const ScreenShared = ({ screenTrack }: Props) => {
   const screenRef = useRef<HTMLVideoElement>(null)
-  const bg = useColorModeValue('blue.400', '#181b29')
+  // const bg = useColorModeValue('blue.400', '#181b29')
+  // console.log('screenTrack <ScreenShared />', screenTrack)
 
   useEffect(() => {
     // attach the screen track to the video element
     if (screenTrack) {
-      screenTrack.attach(screenRef.current as HTMLMediaElement)
+      screenTrack.attach(screenRef.current)
       return () => {
         screenTrack.detach()
       }
@@ -20,19 +22,9 @@ const ScreenShared = () => {
 
   return (
     <>
-      <Flex
-        bg={bg}
-        rounded='lg'
-        p={{ base: 4, lg: 6, xl: 6 }}
-        gap={8}
-        direction='column'
-        overflow='scroll'
-      >
-        <Heading fontSize={{ base: 'sm', md: 'sm', lg: 'xl', xl: '2xl' }}>Screen Sharing</Heading>
-        <Box>
-          <video ref={screenRef} autoPlay style={{ maxHeight: '80%', maxWidth: '80%' }} />
-        </Box>
-      </Flex>
+      <Box>
+        <video ref={screenRef} autoPlay style={{ maxHeight: '80%', maxWidth: '80%' }} />
+      </Box>
     </>
   )
 }

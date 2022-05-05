@@ -26,7 +26,7 @@ type Props = {
 // Set video call capacity: https://www.twilio.com/console/video/configure
 
 const RoomDetails = ({ profile, roomId }: Props) => {
-  const { room, setRoom, isSharing, screenTrack } = useVideoContext()
+  const { room, setRoom } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -63,11 +63,9 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
-  console.log('Screen track from room page', { screenTrack, isSharing })
   return (
     <>
       <LayoutRoomDetails>
-        {isSharing && <ScreenShared />}
         <VideoCall full_name={full_name}>
           {room && (
             <>
