@@ -1,6 +1,9 @@
+import { User } from '@supabase/supabase-js'
+
 export interface RoomCall {
-  id: number
+  id?: number //Generate by supabase
+  owner_id?: User['id']
   name: string
-  amountParticipants: number
-  shareableCode: string
+  total_participant?: number
+  shareable_code: string
 }

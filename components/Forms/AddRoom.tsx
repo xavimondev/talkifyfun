@@ -1,28 +1,49 @@
 import { useRef } from 'react'
 import { Box, Button, Input } from '@chakra-ui/react'
 
-import { AddIc } from 'components/Icons'
-import { useRoomContext } from 'context/RoomContext'
+import { saveRoomDatabase } from 'services/room'
+import { supabase } from 'services/config'
+import { RoomCall } from 'types/room'
 import { getShareableRandomCode } from 'utils/getShareableCode'
+import { useRoomContext } from 'context/RoomContext'
+import { AddIc } from 'components/Icons'
 
 const AddRoom = () => {
   const roomRef = useRef<HTMLInputElement>(null)
-  const { addRoom } = useRoomContext()
+  const { addRoomContext } = useRoomContext()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const roomName = roomRef.current?.value
     if (!roomName) return
-    const id = +Date.now()
-    const newRoom = {
-      id,
+
+    // This field is for attaching to shareable code
+    const dateNow = +Date.now()
+    // Get current user's id
+    const owner_id = supabase.auth.user()?.id
+
+    const roomToSave: RoomCall = {
+      owner_id,
       name: roomName,
-      amountParticipants: 0,
-      shareableCode: getShareableRandomCode(id)
+      total_participant: 0,
+      shareable_code: getShareableRandomCode(dateNow)
     }
-    addRoom(newRoom)
-    roomRef.current.value = ''
-    roomRef.current?.focus()
+
+    const data = await saveRoomDatabase(roomToSave)
+    if (data) {
+      // Getting data from database
+      const { id, owner_id, shareable_code, name, total_participant } = data[0]
+      const newRoom = {
+        id,
+        owner_id,
+        name,
+        total_participant,
+        shareable_code
+      }
+      addRoomContext(newRoom)
+      roomRef.current.value = ''
+      roomRef.current?.focus()
+    }
   }
 
   return (

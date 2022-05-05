@@ -15,15 +15,15 @@ export const RoomProvider = ({ children }: PropsRoomProvider) => {
   const [listRooms, setListRooms] = useState<RoomCall[]>(roomData)
   const [roomSelected, setRoomSelected] = useState<RoomCall | null>(null)
 
-  const addRoom = (room: RoomCall) => setListRooms([room, ...listRooms])
+  const addRoomContext = (room: RoomCall) => setListRooms([room, ...listRooms])
   const selectRoom = (room: RoomCall) => setRoomSelected(room)
-  const findRoom = (code: string) => listRooms.find((room) => room.shareableCode === code)
+  const findRoom = (code: string) => listRooms.find((room) => room.shareable_code === code)
   const unsetSelectedRoom = () => setTimeout(() => setRoomSelected(null), 1000)
 
   const contextValue = {
     listRooms,
     roomSelected,
-    addRoom,
+    addRoomContext,
     selectRoom,
     findRoom,
     unsetSelectedRoom
