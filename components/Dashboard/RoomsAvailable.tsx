@@ -44,17 +44,17 @@ const Room = ({ room, handleRoom, copyCode }: PropsRoom): JSX.Element => {
   )
 }
 
-const CurrentRooms = () => {
+const RoomsAvailable = () => {
+  const { listRooms, selectRoom, isLoading } = useRoomContext()
   const bg = useColorModeValue('blue.400', '#181b29')
-  const { listRooms, selectRoom } = useRoomContext()
 
+  // Set status to define room selected
   const handleRoom = async (room: RoomCall) => {
-    // Set status to define room selected
     selectRoom(room)
   }
 
+  // Copy to clipboard the shareableCode and then show notification
   const copyCode = async (code: string) => {
-    // Copy to clipboard the shareableCode and then show notification
     await copyTextToClipboard(code)
     showNotification('shareable code copied to clipboard', 'success')
   }
@@ -70,6 +70,7 @@ const CurrentRooms = () => {
       <Flex direction='column' gap={6}>
         <AddRoom />
         <Flex direction='column' gap={2}>
+          {isLoading && <Text>Loading Data...</Text>}
           {listRooms.map((room) => (
             <Room key={room.id} room={room} handleRoom={handleRoom} copyCode={copyCode} />
           ))}
@@ -79,4 +80,4 @@ const CurrentRooms = () => {
   )
 }
 
-export default CurrentRooms
+export default RoomsAvailable

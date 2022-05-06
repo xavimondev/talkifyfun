@@ -16,3 +16,21 @@ export const saveRoomDatabase = async (room: RoomCall) => {
     return null
   }
 }
+
+// List room by owner
+export const listRoomsByOwner = async (userId: User['id']) => {
+  try {
+    const { data, error } = await supabase
+      .from<RoomCall>('rooms')
+      .select('id,name,shareable_code,total_participant')
+      .eq('owner_id', userId)
+      .order('id', { ascending: false })
+
+    if (error) {
+      throw new Error('Error listing rooms')
+    }
+    return data
+  } catch (error) {
+    return null
+  }
+}

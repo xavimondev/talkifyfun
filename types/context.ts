@@ -10,6 +10,8 @@ export interface RoomState {
   selectRoom: (room: RoomCall) => void
   findRoom: (room: string) => RoomCall | undefined
   unsetSelectedRoom: () => void
+  setListRooms: Dispatch<SetStateAction<RoomCall[]>>
+  isLoading: boolean
 }
 
 export interface VideoState {
