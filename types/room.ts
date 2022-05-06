@@ -7,3 +7,10 @@ export interface RoomCall {
   total_participant?: number
   shareable_code: string
 }
+
+export interface Activity {
+  id?: number //Generate by supabase
+  user_id?: User['id']
+  title: string
+  created_at?: string
+}
