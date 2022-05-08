@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 
 import { dismissToast, showNotification } from 'utils/notify'
 import { Activity } from 'types/room'
+import { searchRoomByCode } from 'services/room'
 import { supabase } from 'services/config'
 import { saveActivityDatabase } from 'services/activities'
 import { useRoomContext } from 'context/RoomContext'
@@ -20,11 +21,12 @@ const JoinRoom = () => {
     const code = codeInputRef.current?.value
     if (!code) return
 
-    // First we search locally
+    // First we search locally(our room data)
     let roomSearched = findRoom(code)
     if (!roomSearched) {
-      // If not found, we search on the database
-      roomSearched = undefined
+      // If not found, we search on the database.
+      // This case gonna happen when you will be invited to join another room
+      roomSearched = await searchRoomByCode(code)
       if (!roomSearched) {
         showNotification('Room not found 😔', 'error')
         return
@@ -32,7 +34,6 @@ const JoinRoom = () => {
     }
 
     // We have a room!
-    // const roomName = 'Room fake name'
     const userId = supabase.auth.user()?.id
     const titleActivity = 'You have joined at the room: ' + roomSearched.name
     const activity: Activity = {

@@ -34,3 +34,21 @@ export const listRoomsByOwner = async (userId: User['id']) => {
     return null
   }
 }
+
+// Search room by shareable code
+export const searchRoomByCode = async (shareableCode: string) => {
+  try {
+    const { data, error } = await supabase
+      .from<RoomCall>('rooms')
+      .select('id,name,total_participant,shareable_code')
+      .eq('shareable_code', shareableCode)
+      .single()
+
+    if (error) {
+      throw new Error('Room not found')
+    }
+    return data
+  } catch (error) {
+    return undefined
+  }
+}
