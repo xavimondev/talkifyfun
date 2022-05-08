@@ -1,9 +1,11 @@
 import { Box, Flex, Heading, IconButton, Link, Text, useColorModeValue } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
+import { Activity, RoomCall } from 'types/room'
 import { showNotification } from 'utils/notify'
 import { copyTextToClipboard } from 'utils/copyClipboard'
-import { RoomCall } from 'types/room'
+import { supabase } from 'services/config'
+import { saveActivityDatabase } from 'services/activities'
 import { useRoomContext } from 'context/RoomContext'
 import { CopyToClipboardIc, ThreadIc } from 'components/Icons'
 import AddRoom from 'components/Forms/AddRoom'
@@ -50,7 +52,17 @@ const RoomsAvailable = () => {
 
   // Set status to define room selected
   const handleRoom = async (room: RoomCall) => {
+    // Set state with room selected
     selectRoom(room)
+
+    // Add new activity
+    const titleActivity = 'You have joined at the room: ' + room.name
+    const userId = supabase.auth.user()?.id
+    const activity: Activity = {
+      title: titleActivity,
+      user_id: userId
+    }
+    await saveActivityDatabase(activity)
   }
 
   // Copy to clipboard the shareableCode and then show notification
