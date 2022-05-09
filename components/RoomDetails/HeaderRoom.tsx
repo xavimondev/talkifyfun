@@ -1,5 +1,4 @@
-import NextLink from 'next/link'
-import { Box, Flex, Heading, Link, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import { Toaster } from 'react-hot-toast'
 
 import { showNotification } from 'utils/notify'
@@ -12,7 +11,7 @@ const HeaderRoom = () => {
   const { roomSelected } = useRoomContext()
 
   const copyShareableCode = async () => {
-    await copyTextToClipboard(roomSelected!.shareableCode)
+    await copyTextToClipboard(roomSelected!.shareable_code)
     showNotification('shareable code copied to clipboard', 'success')
   }
 
