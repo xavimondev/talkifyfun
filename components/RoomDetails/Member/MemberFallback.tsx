@@ -21,20 +21,23 @@ const MemberFallback = ({ userIdentity }: Props) => {
         overflow='hidden'
         justifyContent='center'
         alignItems='center'
-        width='full'
+        width='50%'
         height='full'
         direction='column'
         gap={8}
         bg='#1A202C'
+        p={8}
       >
         <Avatar name={full_name ?? userIdentity} size={sizeAvatar} />
         <Text
           fontSize={{
-            base: 'md',
+            base: 'sm',
+            md: 'md',
             lg: '2xl',
             xl: '3xl'
           }}
           fontWeight='semibold'
+          textAlign='center'
         >
           {full_name ?? userIdentity}
         </Text>
