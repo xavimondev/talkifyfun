@@ -17,6 +17,7 @@ const MemberVideo = ({ videoTrack, audioTrack }: Props) => {
           ref={videoRef}
           autoPlay={true}
           style={{
+            height: '100%',
             filter: 'none',
             objectFit: 'contain'
           }}
