@@ -1,10 +1,8 @@
 import { Participant } from 'twilio-video'
 
-import usePublications from 'hooks/usePublication'
+import usePublication from 'hooks/usePublication'
 import useTrackPublished from 'hooks/useTrackPublished'
 import useMemberTrack from 'hooks/useMemberTrack'
-
-import ScreenShared from '../ScreenShared'
 
 import MemberVideo from './MemberVideo'
 
@@ -13,10 +11,10 @@ type Props = {
 }
 
 const MemberTrack = ({ member }: Props) => {
-  const { publications } = usePublications(member)
+  const { publications } = usePublication(member)
 
   // TODO: Improve this logic
-  const [publicationOne, publicationTwo, screenVideoPublication] = publications
+  const [publicationOne, publicationTwo] = publications
   let audioPublication = undefined,
     videoPublication = undefined
 
@@ -35,19 +33,12 @@ const MemberTrack = ({ member }: Props) => {
 
   const audioTrack = useTrackPublished(audioPublication)
   const videoTrack = useTrackPublished(videoPublication)
-  // screenVideoPublication could be undefined as long as no one is sharing its screen
-  const screenTrack = useTrackPublished(screenVideoPublication)
-
+  // Check if user's video is enabled
   const isVideoEnabled = useMemberTrack(videoPublication)
 
   if (!audioTrack && !videoTrack) return null
 
-  return (
-    <>
-      {screenTrack && <ScreenShared screenTrack={screenTrack} />}
-      {isVideoEnabled && <MemberVideo audioTrack={audioTrack} videoTrack={videoTrack} />}
-    </>
-  )
+  return <>{isVideoEnabled && <MemberVideo audioTrack={audioTrack} videoTrack={videoTrack} />}</>
 }
 
 export default MemberTrack

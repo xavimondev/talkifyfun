@@ -18,6 +18,7 @@ import VideoCallActions from 'components/RoomDetails/VideoCallActions'
 import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
 import MemberFallback from 'components/RoomDetails/Member/MemberFallback'
+import VideoCallScreenShared from 'components/RoomDetails/VideoCallScreenShared'
 
 type Props = {
   profile: any
@@ -26,7 +27,7 @@ type Props = {
 // Set video call capacity: https://www.twilio.com/console/video/configure
 
 const RoomDetails = ({ profile, roomId }: Props) => {
-  const { room, setRoom } = useVideoContext()
+  const { room, setRoom, screenTrack } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -66,19 +67,19 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   return (
     <>
       <LayoutRoomDetails>
+        {screenTrack && <VideoCallScreenShared member={room!.localParticipant} />}
+        {/* Render all the participants of the meeting  */}
         <VideoCallParticipants>
           {room ? (
             <>
-              {/* This is local member  */}
               <Member member={room?.localParticipant} />
-              {/* List of remote members */}
               <ListRemoteMembers participants={participants} />
             </>
           ) : (
             <MemberFallback userIdentity={full_name} />
           )}
         </VideoCallParticipants>
-        <VideoCallActions onOpen={onOpen} />
+        {room && <VideoCallActions onOpen={onOpen} />}
       </LayoutRoomDetails>
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
