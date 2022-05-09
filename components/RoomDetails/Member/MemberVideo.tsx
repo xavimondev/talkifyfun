@@ -12,17 +12,13 @@ const MemberVideo = ({ videoTrack, audioTrack }: Props) => {
 
   return (
     <>
-      <Box borderRadius={10} width='100%' height='100%'>
+      <Box width='auto' height='full'>
         <video
           ref={videoRef}
           autoPlay={true}
           style={{
-            width: '100%',
-            // height: '100%',
-            objectFit: 'cover'
-            // position: 'absolute',
-            // top: 0,
-            // left: 0,
+            filter: 'none',
+            objectFit: 'contain'
           }}
         />
         <audio ref={audioRef} autoPlay={true} muted={false} />

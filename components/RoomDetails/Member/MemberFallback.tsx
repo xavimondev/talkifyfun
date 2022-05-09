@@ -4,7 +4,7 @@ type Props = {
   userIdentity: string
 }
 
-const FallbackVideo = ({ userIdentity }: Props) => {
+const MemberFallback = ({ userIdentity }: Props) => {
   // User identity seems like: 3094809384-23232-232323|Mi name
   const full_name = userIdentity?.split('|')[1]
   const sizeAvatar = useBreakpointValue({
@@ -27,7 +27,7 @@ const FallbackVideo = ({ userIdentity }: Props) => {
         gap={8}
         bg='#1A202C'
       >
-        <Avatar name={full_name} size={sizeAvatar} />
+        <Avatar name={full_name ?? userIdentity} size={sizeAvatar} />
         <Text
           fontSize={{
             base: 'md',
@@ -36,11 +36,11 @@ const FallbackVideo = ({ userIdentity }: Props) => {
           }}
           fontWeight='semibold'
         >
-          {full_name}
+          {full_name ?? userIdentity}
         </Text>
       </Flex>
     </>
   )
 }
 
-export default FallbackVideo
+export default MemberFallback

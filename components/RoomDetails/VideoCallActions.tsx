@@ -16,7 +16,7 @@ type Props = {
   onOpen: () => void
 }
 
-const ControlsRoom = ({ onOpen }: Props) => {
+const VideoCallActions = ({ onOpen }: Props) => {
   const {
     toggleUserAudio,
     toggleUserVideo,
@@ -73,4 +73,4 @@ const ControlsRoom = ({ onOpen }: Props) => {
   )
 }
 
-export default ControlsRoom
+export default VideoCallActions

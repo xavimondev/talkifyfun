@@ -10,13 +10,14 @@ import useParticipant from 'hooks/useParticipants'
 import { useVideoContext } from 'context/VideoContext'
 import { useRoomContext } from 'context/RoomContext'
 import PeopleConnected from 'components/RoomDetails/PeopleConnected'
-import VideoCall from 'components/RoomDetails/VideoCall'
+import VideoCallParticipants from 'components/RoomDetails/VideoCallParticipants'
 import Member from 'components/RoomDetails/Member/'
 import LayoutRoomDetails from 'components/Layout/LayoutRoomDetails'
 import NotRoomFound from 'components/Errors/NotRoomFound'
-import ControlsRoom from 'components/RoomDetails/ControlsRoom'
+import VideoCallActions from 'components/RoomDetails/VideoCallActions'
 import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
+import MemberFallback from 'components/RoomDetails/Member/MemberFallback'
 
 type Props = {
   profile: any
@@ -65,18 +66,20 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   return (
     <>
       <LayoutRoomDetails>
-        <VideoCall full_name={full_name}>
-          {room && (
+        <VideoCallParticipants>
+          {room ? (
             <>
               {/* This is local member  */}
               <Member member={room?.localParticipant} />
               {/* List of remote members */}
               <ListRemoteMembers participants={participants} />
             </>
+          ) : (
+            <MemberFallback userIdentity={full_name} />
           )}
-        </VideoCall>
+        </VideoCallParticipants>
+        <VideoCallActions onOpen={onOpen} />
       </LayoutRoomDetails>
-      {room && <ControlsRoom onOpen={onOpen} />}
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
       </CustomModal>
