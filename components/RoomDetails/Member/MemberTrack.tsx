@@ -38,7 +38,13 @@ const MemberTrack = ({ member }: Props) => {
 
   if (!audioTrack && !videoTrack) return null
 
-  return <>{isVideoEnabled && <MemberVideo audioTrack={audioTrack} videoTrack={videoTrack} />}</>
+  return (
+    <>
+      {isVideoEnabled && (
+        <MemberVideo audioTrack={audioTrack} videoTrack={videoTrack} member={member} />
+      )}
+    </>
+  )
 }
 
 export default MemberTrack
