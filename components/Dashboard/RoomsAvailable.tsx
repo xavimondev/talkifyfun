@@ -17,7 +17,8 @@ type PropsRoom = {
 }
 
 const Room = ({ room, handleRoom, copyCode }: PropsRoom): JSX.Element => {
-  const { id, name, total_participant, shareable_code } = room
+  // TODO: Add amount of participants per rooom in version 2
+  const { id, name, shareable_code } = room
 
   return (
     <Flex my={{ sm: '1rem', xl: '10px' }} alignItems='center' justifyContent='space-between'>
@@ -29,9 +30,6 @@ const Room = ({ room, handleRoom, copyCode }: PropsRoom): JSX.Element => {
             </Text>
           </Link>
         </NextLink>
-        <Text fontSize='sm' color='#a1a2a9' fontFamily='body' fontWeight='semibold' me='16px'>
-          Participants: {total_participant}
-        </Text>
       </Flex>
       <IconButton
         aria-label='Copy code'
