@@ -1,19 +1,19 @@
 import { Avatar, Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import { Participant } from 'twilio-video'
 
+import { getFullNameFromMember } from 'utils/getUserProfile'
+
 type PropsUserConnected = {
-  name: string
+  fullName: string
   avatarUrl: string
 }
 
-const UserConnected = ({ name, avatarUrl }: PropsUserConnected): JSX.Element => {
-  const full_name = name?.split('|')[1]
-
+const UserConnected = ({ fullName, avatarUrl }: PropsUserConnected): JSX.Element => {
   return (
     <Flex alignItems='center'>
-      <Avatar size='sm' mr='5' name={name} src={avatarUrl} />
+      <Avatar size='sm' mr='5' name={fullName} src={avatarUrl} />
       <Text fontSize='md' color='white' fontWeight='semibold'>
-        {full_name}
+        {fullName}
       </Text>
     </Flex>
   )
@@ -33,7 +33,7 @@ const PeopleConnected = ({ participants }: PropsPeopleConnected) => {
           : participants.map((participant: Participant) => (
               <UserConnected
                 key={participant.sid}
-                name={participant.identity}
+                fullName={getFullNameFromMember(participant)}
                 avatarUrl={participant.identity}
               />
             ))}

@@ -4,10 +4,10 @@ import { Flex, Heading } from '@chakra-ui/react'
 
 type Props = {
   screenTrack: LocalVideoTrack | RemoteVideoTrack
-  full_name: string
+  fullName: string
 }
 
-const VideoCallScreenShared = ({ screenTrack, full_name }: Props) => {
+const VideoCallScreenShared = ({ screenTrack, fullName }: Props) => {
   const screenRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const VideoCallScreenShared = ({ screenTrack, full_name }: Props) => {
         w='full'
         h='full'
       >
-        <Heading fontSize='lg'>{full_name} is sharing screen</Heading>
+        <Heading fontSize='lg'>{fullName} is sharing screen</Heading>
         <video ref={screenRef} autoPlay style={{ maxHeight: '80%', maxWidth: '80%' }} />
       </Flex>
     </>

@@ -67,12 +67,12 @@ const RoomDetails = ({ profile, roomId }: Props) => {
         {screenTrack && (
           <VideoCallScreenShared
             screenTrack={screenTrack as LocalVideoTrack | RemoteVideoTrack}
-            full_name={full_name}
+            fullName={full_name}
           />
         )}
         {/* Render all the participants of the meeting  */}
         <VideoCallParticipants>
-          <Member member={room?.localParticipant} />
+          <Member member={room.localParticipant} />
           <ListRemoteMembers participants={participants} />
         </VideoCallParticipants>
         <VideoCallActions onOpen={onOpen} />

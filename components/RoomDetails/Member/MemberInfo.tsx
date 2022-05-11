@@ -21,7 +21,7 @@ const MemberInfo = ({ member, children }: Props) => {
   const screenPublication = getPublicationsByTrack('screen')
   useTrackPublished(screenPublication)
 
-  return <>{!isVideoEnabled ? <MemberFallback userIdentity={member.identity} /> : children}</>
+  return <>{!isVideoEnabled ? <MemberFallback member={member} /> : children}</>
 }
 
 export default MemberInfo

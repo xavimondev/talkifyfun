@@ -1,12 +1,14 @@
 import { Avatar, Flex, Text, useBreakpointValue } from '@chakra-ui/react'
+import { Participant } from 'twilio-video'
+
+import { getFullNameFromMember } from 'utils/getUserProfile'
 
 type Props = {
-  userIdentity: string
+  member: Participant
 }
 
-const MemberFallback = ({ userIdentity }: Props) => {
-  // User identity seems like: 3094809384-23232-232323|Mi name
-  const full_name = userIdentity?.split('|')[1]
+const MemberFallback = ({ member }: Props) => {
+  const fullName = getFullNameFromMember(member)
   const sizeAvatar = useBreakpointValue({
     base: 'sm',
     md: 'md',
@@ -28,7 +30,7 @@ const MemberFallback = ({ userIdentity }: Props) => {
         bg='#1A202C'
         p={8}
       >
-        <Avatar name={full_name ?? userIdentity} size={sizeAvatar} />
+        <Avatar name={fullName} size={sizeAvatar} />
         <Text
           fontSize={{
             base: 'sm',
@@ -39,7 +41,7 @@ const MemberFallback = ({ userIdentity }: Props) => {
           fontWeight='semibold'
           textAlign='center'
         >
-          {full_name ?? userIdentity}
+          {fullName}
         </Text>
       </Flex>
     </>

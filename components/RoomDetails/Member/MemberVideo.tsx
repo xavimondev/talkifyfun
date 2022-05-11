@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react'
 import { Participant } from 'twilio-video'
 
 import useTrack from 'hooks/useTrack'
+import { getFullNameFromMember } from 'utils/getUserProfile'
 
 type Props = {
   videoTrack: any
@@ -11,7 +12,7 @@ type Props = {
 
 const MemberVideo = ({ videoTrack, audioTrack, member }: Props) => {
   const { videoRef, audioRef } = useTrack(videoTrack, audioTrack)
-  const full_name = member.identity?.split('|')[1]
+  const fullName = getFullNameFromMember(member)
 
   return (
     <>
@@ -28,7 +29,7 @@ const MemberVideo = ({ videoTrack, audioTrack, member }: Props) => {
           py={1}
           px={3}
         >
-          {full_name}
+          {fullName}
         </Text>
         <video
           ref={videoRef}
