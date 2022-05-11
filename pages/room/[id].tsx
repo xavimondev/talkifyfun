@@ -27,7 +27,7 @@ type Props = {
 // Set video call capacity: https://www.twilio.com/console/video/configure
 
 const RoomDetails = ({ profile, roomId }: Props) => {
-  const { room, setRoom, screenTrack } = useVideoContext()
+  const { room, setRoom, screenTrack, clearRoom } = useVideoContext()
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,16 +49,10 @@ const RoomDetails = ({ profile, roomId }: Props) => {
         })
       })
 
+      window.addEventListener('beforeunload', clearRoom)
+
       return () => {
-        setRoom((prevRoom: Room | null) => {
-          if (prevRoom) {
-            prevRoom.localParticipant.tracks.forEach((trackPublication: any) => {
-              trackPublication.track.stop()
-            })
-            prevRoom.disconnect()
-          }
-          return null
-        })
+        window.removeEventListener('beforeunload', clearRoom)
       }
     }
   }, []) //eslint-disable-line react-hooks/exhaustive-deps

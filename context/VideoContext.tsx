@@ -1,4 +1,4 @@
-import { createContext, useRef, useContext, useState } from 'react'
+import { createContext, useRef, useContext, useState, useCallback } from 'react'
 import { Room, LocalVideoTrack } from 'twilio-video'
 
 import { DEFAULT_SETTINGS_SHARING } from 'config/screenShare'
@@ -30,11 +30,23 @@ export const VideoProvider = ({ children }: Props) => {
       setIsVideoEnabled(INITIAL_STATUS_MEDIA)
       // Cleaning state room
       unsetSelectedRoom()
+      room?.disconnect()
       // Cleaning state and stop screen track in case user was sharing screen
       setScreenTrack(null)
-      // screenTrack?.stop()
     }, 1000)
   }
+
+  const clearRoom = useCallback(() => {
+    setRoom((prevRoom: Room | null) => {
+      if (prevRoom) {
+        prevRoom.localParticipant.tracks.forEach((trackPublication: any) => {
+          trackPublication.track.stop()
+        })
+        prevRoom.disconnect()
+      }
+      return null
+    })
+  }, [])
 
   /* Enable o disable audio */
   const toggleUserAudio = () => {
@@ -99,7 +111,8 @@ export const VideoProvider = ({ children }: Props) => {
     isAudioEnabled,
     isVideoEnabled,
     screenTrack,
-    setScreenTrack
+    setScreenTrack,
+    clearRoom
   }
 
   return <VideoContext.Provider value={contextValues}>{children}</VideoContext.Provider>

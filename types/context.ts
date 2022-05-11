@@ -27,4 +27,5 @@ export interface VideoState {
   isVideoEnabled: boolean
   screenTrack: ScreenTrack
   setScreenTrack: Dispatch<SetStateAction<ScreenTrack>>
+  clearRoom: () => void
 }
