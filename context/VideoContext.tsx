@@ -31,6 +31,7 @@ export const VideoProvider = ({ children }: Props) => {
       // Cleaning state room
       unsetSelectedRoom()
       room?.disconnect()
+      setRoom(null)
       // Cleaning state and stop screen track in case user was sharing screen
       setScreenTrack(null)
     }, 1000)

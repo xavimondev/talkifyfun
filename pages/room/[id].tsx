@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-import Video, { LocalVideoTrack, RemoteVideoTrack, Room } from 'twilio-video'
+import Video, { LocalVideoTrack, RemoteVideoTrack } from 'twilio-video'
 import { useDisclosure } from '@chakra-ui/react'
 
 import { getUserProfile } from 'utils/getUserProfile'
@@ -17,8 +17,8 @@ import NotRoomFound from 'components/Errors/NotRoomFound'
 import VideoCallActions from 'components/RoomDetails/VideoCallActions'
 import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
-import MemberFallback from 'components/RoomDetails/Member/MemberFallback'
 import VideoCallScreenShared from 'components/RoomDetails/VideoCallScreenShared'
+import RoomFallback from 'components/RoomDetails/RoomFallback'
 
 type Props = {
   profile: any
@@ -58,10 +58,13 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
+
+  if (!room) return <RoomFallback roomName={roomSelected.name} />
+
   return (
     <>
       <LayoutRoomDetails>
-        {screenTrack && room && (
+        {screenTrack && (
           <VideoCallScreenShared
             screenTrack={screenTrack as LocalVideoTrack | RemoteVideoTrack}
             full_name={full_name}
@@ -69,16 +72,10 @@ const RoomDetails = ({ profile, roomId }: Props) => {
         )}
         {/* Render all the participants of the meeting  */}
         <VideoCallParticipants>
-          {room ? (
-            <>
-              <Member member={room?.localParticipant} />
-              <ListRemoteMembers participants={participants} />
-            </>
-          ) : (
-            <MemberFallback userIdentity={full_name} />
-          )}
+          <Member member={room?.localParticipant} />
+          <ListRemoteMembers participants={participants} />
         </VideoCallParticipants>
-        {room && <VideoCallActions onOpen={onOpen} />}
+        <VideoCallActions onOpen={onOpen} />
       </LayoutRoomDetails>
       <CustomModal title={`Participants: ${participants.length}`} isOpen={isOpen} onClose={onClose}>
         <PeopleConnected participants={participants} />
