@@ -1,8 +1,8 @@
 import { createContext, useRef, useContext, useState } from 'react'
-import { LocalVideoTrack, Room } from 'twilio-video'
+import { Room, LocalVideoTrack } from 'twilio-video'
 
 import { DEFAULT_SETTINGS_SHARING } from 'config/screenShare'
-import { VideoState } from 'types/context'
+import { ScreenTrack, VideoState } from 'types/context'
 
 import { useRoomContext } from './RoomContext'
 
@@ -20,8 +20,7 @@ export const VideoProvider = ({ children }: Props) => {
   const [isAudioEnabled, setIsAudioEnabled] = useState(INITIAL_STATUS_MEDIA)
   const [isVideoEnabled, setIsVideoEnabled] = useState(INITIAL_STATUS_MEDIA)
   // the screen track shared by a participant
-  const [screenTrack, setScreenTrack] = useState<LocalVideoTrack | null>(null)
-  const [isSharing, setIsSharing] = useState(false)
+  const [screenTrack, setScreenTrack] = useState<ScreenTrack>(null)
   const stopScreenShareRef = useRef<() => void>()
 
   const leaveRoom = () => {
@@ -31,9 +30,9 @@ export const VideoProvider = ({ children }: Props) => {
       setIsVideoEnabled(INITIAL_STATUS_MEDIA)
       // Cleaning state room
       unsetSelectedRoom()
-      // Cleaning state in case user was sharing screen
-      setIsSharing(false)
+      // Cleaning state and stop screen track in case user was sharing screen
       setScreenTrack(null)
+      // screenTrack?.stop()
     }, 1000)
   }
 
@@ -61,12 +60,12 @@ export const VideoProvider = ({ children }: Props) => {
       room.localParticipant.videoTracks.forEach((publication) => {
         // If someone is sharing its screen and turn off its camera, it will continue sharing the screen
         // For that I just disabled video track
-        if (screenTrack?.id !== publication.track.id) publication.track.disable()
+        if (publication.trackName !== 'screen') publication.track.disable()
       })
     } else {
       room.localParticipant.videoTracks.forEach((publication) => {
         // I just disabled video track
-        if (screenTrack?.id !== publication.track.id) publication.track.enable()
+        if (publication.trackName !== 'screen') publication.track.enable()
       })
     }
     setIsVideoEnabled(!isVideoEnabled)
@@ -76,19 +75,16 @@ export const VideoProvider = ({ children }: Props) => {
   const screenShare = async () => {
     navigator.mediaDevices.getDisplayMedia(DEFAULT_SETTINGS_SHARING).then((stream) => {
       const track = stream.getTracks()[0]
-      const userScreen = new LocalVideoTrack(track)
-      setScreenTrack(userScreen)
+      // logLevel is deprecated, but it's neccesary to send as argument
+      const userScreen = new LocalVideoTrack(track, { name: 'screen', logLevel: 'info' })
+
       room!.localParticipant.publishTrack(userScreen).then((trackPublication) => {
         stopScreenShareRef.current = () => {
           room!.localParticipant.unpublishTrack(track)
           room!.localParticipant.emit('trackUnpublished', trackPublication)
           track.stop()
-          setIsSharing(false)
-          setScreenTrack(null)
         }
-
         track.onended = stopScreenShareRef.current
-        setIsSharing(true)
       })
     })
   }
@@ -102,8 +98,8 @@ export const VideoProvider = ({ children }: Props) => {
     screenShare,
     isAudioEnabled,
     isVideoEnabled,
-    isSharing,
-    screenTrack
+    screenTrack,
+    setScreenTrack
   }
 
   return <VideoContext.Provider value={contextValues}>{children}</VideoContext.Provider>

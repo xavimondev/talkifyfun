@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-import Video, { Room } from 'twilio-video'
+import Video, { LocalVideoTrack, RemoteVideoTrack, Room } from 'twilio-video'
 import { useDisclosure } from '@chakra-ui/react'
 
 import { getUserProfile } from 'utils/getUserProfile'
@@ -67,7 +67,12 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   return (
     <>
       <LayoutRoomDetails>
-        {screenTrack && <VideoCallScreenShared member={room!.localParticipant} />}
+        {screenTrack && room && (
+          <VideoCallScreenShared
+            screenTrack={screenTrack as LocalVideoTrack | RemoteVideoTrack}
+            full_name={full_name}
+          />
+        )}
         {/* Render all the participants of the meeting  */}
         <VideoCallParticipants>
           {room ? (

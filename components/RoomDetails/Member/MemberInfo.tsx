@@ -1,8 +1,9 @@
 import React from 'react'
 import { Participant } from 'twilio-video'
 
-import usePublications from 'hooks/usePublication'
+import usePublication from 'hooks/usePublication'
 import useMemberTrack from 'hooks/useMemberTrack'
+import useTrackPublished from 'hooks/useTrackPublished'
 
 import MemberFallback from './MemberFallback'
 
@@ -12,15 +13,15 @@ type Props = {
 }
 
 const MemberInfo = ({ member, children }: Props) => {
-  const { getPublicationsByTrack } = usePublications(member)
+  const { getPublicationsByTrack } = usePublication(member)
   const videoPublication = getPublicationsByTrack('video')
   const isVideoEnabled = useMemberTrack(videoPublication)
-  return (
-    <>
-      {!isVideoEnabled && <MemberFallback userIdentity={member.identity} />}
-      {children}
-    </>
-  )
+
+  // Suscribed to screen track
+  const screenPublication = getPublicationsByTrack('screen')
+  useTrackPublished(screenPublication)
+
+  return <>{!isVideoEnabled ? <MemberFallback userIdentity={member.identity} /> : children}</>
 }
 
 export default MemberInfo

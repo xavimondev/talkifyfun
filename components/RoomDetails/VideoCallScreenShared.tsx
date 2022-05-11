@@ -1,24 +1,19 @@
 import { useRef, useEffect } from 'react'
-import { Participant } from 'twilio-video'
+import { LocalVideoTrack, RemoteVideoTrack } from 'twilio-video'
 import { Flex, Heading } from '@chakra-ui/react'
 
-import usePublication from 'hooks/usePublication'
-import useTrackPublished from 'hooks/useTrackPublished'
-
 type Props = {
-  member: Participant
+  screenTrack: LocalVideoTrack | RemoteVideoTrack
+  full_name: string
 }
 
-const VideoCallScreenShared = ({ member }: Props) => {
-  const full_name = member.identity?.split('|')[1]
-  const { publications } = usePublication(member)
-  const screenTrack: any = useTrackPublished(publications[2])
+const VideoCallScreenShared = ({ screenTrack, full_name }: Props) => {
   const screenRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     // attach the screen track to the video element
     if (screenTrack) {
-      screenTrack.attach(screenRef.current)
+      screenTrack.attach(screenRef.current!)
       return () => {
         screenTrack.detach()
       }

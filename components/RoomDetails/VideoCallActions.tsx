@@ -24,7 +24,7 @@ const VideoCallActions = ({ onOpen }: Props) => {
     isVideoEnabled,
     leaveRoom,
     screenShare,
-    isSharing
+    screenTrack
   } = useVideoContext()
   const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
   const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
@@ -60,7 +60,7 @@ const VideoCallActions = ({ onOpen }: Props) => {
           aria-label='screen share'
           icon={<ScreenShareIc />}
           onClick={screenShare}
-          disabled={isSharing}
+          disabled={Boolean(screenTrack)}
         />
         {/* TODO: Launch with v2 */}
         {/* <IconButton size='md' aria-label='break rooms' icon={<BreakRoomIc />} /> */}
