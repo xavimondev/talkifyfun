@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-import { VIRTUAL_BACKGROUND_PATHS } from 'config/constants'
+import { VIRTUAL_BACKGROUND_PATHS, IS_MOBILE } from 'config/constants'
 import { useVideoContext } from 'context/VideoContext'
 import {
   CameraDisableIc,
@@ -89,15 +89,23 @@ const VideoCallActions = ({ onOpen }: Props) => {
       </NextLink>
       {/* List of participants */}
       <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
-      {/* Screen share, only available on desktop browsers */}
-      <IconButton
-        size='md'
-        aria-label='screen share'
-        icon={<ScreenShareIc />}
-        onClick={screenShare}
-        disabled={Boolean(screenTrack)}
-      />
-      {/* Effects only available in chromium */}
+      {/* 
+        Screen share is only available on desktop browsers according to the twilio's documentation 
+        https://www.twilio.com/docs/video/screen-capture-chrome#screen-share-not-supported-on-mobile-web-browsers
+      */}
+      {!IS_MOBILE && (
+        <IconButton
+          size='md'
+          aria-label='screen share'
+          icon={<ScreenShareIc />}
+          onClick={screenShare}
+          disabled={Boolean(screenTrack)}
+        />
+      )}
+      {/* 
+        Effects is only available in chromium desktop browsers
+        Check: https://www.twilio.com/docs/video/javascript-v2-developing-safari-11
+       */}
       {IS_CHROMIUM_SUPPORTED && (
         <Box>
           <Menu>

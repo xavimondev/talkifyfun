@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import Video, { LocalVideoTrack, RemoteVideoTrack } from 'twilio-video'
 import { useDisclosure } from '@chakra-ui/react'
 
+import { IS_MOBILE } from 'config/constants'
 import { getUserProfile } from 'utils/getUserProfile'
 import { getToken } from 'utils/getToken'
 import { supabase } from 'services/config'
@@ -50,9 +51,16 @@ const RoomDetails = ({ profile, roomId }: Props) => {
       })
 
       window.addEventListener('beforeunload', clearRoom)
+      // Add a listener when mobile user close their browser
+      if (IS_MOBILE) {
+        window.addEventListener('pagehide', clearRoom)
+      }
 
       return () => {
         window.removeEventListener('beforeunload', clearRoom)
+        if (IS_MOBILE) {
+          window.removeEventListener('pagehide', clearRoom)
+        }
       }
     }
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
