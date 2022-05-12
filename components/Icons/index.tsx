@@ -377,3 +377,18 @@ export const LoadingAnimateIc = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+export const LightningIc = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg height='21' viewBox='0 0 21 21' width='21' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <path
+        d='m5.5 6.5h5l-6 8.997v-5.997h-4l2-9h5z'
+        fill='none'
+        stroke='currentColor'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        transform='translate(5 2)'
+      />
+    </svg>
+  )
+}
