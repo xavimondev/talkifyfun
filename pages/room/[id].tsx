@@ -73,10 +73,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
     <>
       <LayoutRoomDetails>
         {screenTrack && (
-          <VideoCallScreenShared
-            screenTrack={screenTrack as LocalVideoTrack | RemoteVideoTrack}
-            fullName={full_name}
-          />
+          <VideoCallScreenShared screenTrack={screenTrack as LocalVideoTrack | RemoteVideoTrack} />
         )}
         {/* Render all the participants of the meeting  */}
         <VideoCallParticipants>

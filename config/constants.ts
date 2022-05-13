@@ -15,3 +15,12 @@ export const PATH_ASSETS_VIDEO_PROCESSORS = '/twilio-video-processors/lib-assets
 // https://dev.to/timhuang/a-simple-way-to-detect-if-browser-is-on-a-mobile-device-with-javascript-44j3
 
 export const IS_MOBILE = typeof navigator === 'undefined' ? false : /Mobi/.test(navigator.userAgent)
+
+export const COLUMNS_WITHOUT_SCREEN_SHARED = {
+  base: 'repeat(auto-fit,minmax(200px,1fr))',
+  md: 'repeat(auto-fit,minmax(250px,1fr))',
+  lg: 'repeat(auto-fit,minmax(450px,1fr))',
+  '2xl': 'repeat(auto-fit,minmax(500px,1fr))'
+}
+
+export const COLUMNS_WITH_SCREEN_SHARED = 'repeat(auto-fit,minmax(150px,300px))'
