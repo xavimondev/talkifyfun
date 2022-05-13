@@ -1,4 +1,13 @@
-import { Box, Flex, Heading, IconButton, Link, Text, useColorModeValue } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Link,
+  Text,
+  Tooltip,
+  useColorModeValue
+} from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 import { Activity, RoomCall } from 'types/room'
@@ -31,15 +40,17 @@ const Room = ({ room, handleRoom, copyCode }: PropsRoom): JSX.Element => {
           </Link>
         </NextLink>
       </Flex>
-      <IconButton
-        aria-label='Copy code'
-        fontSize='sm'
-        fontWeight='semibold'
-        bg='red.600'
-        _hover={{ bg: 'red.500' }}
-        icon={<CopyToClipboardIc />}
-        onClick={() => copyCode(shareable_code)}
-      />
+      <Tooltip label='Copy code'>
+        <IconButton
+          aria-label='Copy code'
+          fontSize='sm'
+          fontWeight='semibold'
+          bg='red.600'
+          _hover={{ bg: 'red.500' }}
+          icon={<CopyToClipboardIc />}
+          onClick={() => copyCode(shareable_code)}
+        />
+      </Tooltip>
     </Flex>
   )
 }

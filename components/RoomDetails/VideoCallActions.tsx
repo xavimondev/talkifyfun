@@ -7,7 +7,8 @@ import {
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList
+  MenuList,
+  Tooltip
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
@@ -65,42 +66,53 @@ const VideoCallActions = ({ onOpen }: Props) => {
       placeContent='center'
     >
       {/* Audio option */}
-      <IconButton size='md' aria-label='audio' icon={iconAudio} onClick={toggleUserAudio} />
+      <Tooltip label='Toggle audio'>
+        <IconButton size='md' aria-label='audio' icon={iconAudio} onClick={toggleUserAudio} />
+      </Tooltip>
       {/* Video option */}
-      <IconButton
-        size='md'
-        aria-label='video'
-        icon={iconVideo}
-        onClick={toggleUserVideo}
-        disabled={hasProcessor}
-      />
-      {/* Leave the room */}
-      <NextLink href='/home' passHref>
+      <Tooltip label='Toggle video'>
         <IconButton
           size='md'
-          bg='red.500'
-          _hover={{
-            bg: 'red.500'
-          }}
-          aria-label='muted'
-          icon={<LeaveRoomIc />}
-          onClick={leaveRoom}
+          aria-label='video'
+          icon={iconVideo}
+          onClick={toggleUserVideo}
+          disabled={hasProcessor}
         />
+      </Tooltip>
+
+      {/* Leave the room */}
+      <NextLink href='/home' passHref>
+        <Tooltip label='Leave'>
+          <IconButton
+            size='md'
+            bg='red.500'
+            _hover={{
+              bg: 'red.500'
+            }}
+            aria-label='muted'
+            icon={<LeaveRoomIc />}
+            onClick={leaveRoom}
+          />
+        </Tooltip>
       </NextLink>
       {/* List of participants */}
-      <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
+      <Tooltip label='Participants'>
+        <IconButton size='md' aria-label='participants' icon={<PeopleIc />} onClick={onOpen} />
+      </Tooltip>
       {/* 
         Screen share is only available on desktop browsers according to the twilio's documentation 
         https://www.twilio.com/docs/video/screen-capture-chrome#screen-share-not-supported-on-mobile-web-browsers
       */}
       {!IS_MOBILE && (
-        <IconButton
-          size='md'
-          aria-label='screen share'
-          icon={<ScreenShareIc />}
-          onClick={screenShare}
-          disabled={Boolean(screenTrack)}
-        />
+        <Tooltip label='Screen share'>
+          <IconButton
+            size='md'
+            aria-label='screen share'
+            icon={<ScreenShareIc />}
+            onClick={screenShare}
+            disabled={Boolean(screenTrack)}
+          />
+        </Tooltip>
       )}
       {/* 
         Effects is only available in chromium desktop browsers
@@ -109,13 +121,15 @@ const VideoCallActions = ({ onOpen }: Props) => {
       {IS_CHROMIUM_SUPPORTED && (
         <Box>
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label='Options'
-              icon={<LightningIc />}
-              disabled={!isVideoEnabled}
-              width='full'
-            />
+            <Tooltip label='Effects'>
+              <MenuButton
+                as={IconButton}
+                aria-label='Options'
+                icon={<LightningIc />}
+                disabled={!isVideoEnabled}
+                width='full'
+              />
+            </Tooltip>
             <MenuList bg='gray.900'>
               <MenuItem
                 minH='32px'
