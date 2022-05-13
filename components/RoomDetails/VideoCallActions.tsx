@@ -82,18 +82,16 @@ const VideoCallActions = ({ onOpen }: Props) => {
 
       {/* Leave the room */}
       <NextLink href='/home' passHref>
-        <Tooltip label='Leave'>
-          <IconButton
-            size='md'
-            bg='red.500'
-            _hover={{
-              bg: 'red.500'
-            }}
-            aria-label='muted'
-            icon={<LeaveRoomIc />}
-            onClick={leaveRoom}
-          />
-        </Tooltip>
+        <IconButton
+          size='md'
+          bg='red.500'
+          _hover={{
+            bg: 'red.500'
+          }}
+          aria-label='muted'
+          icon={<LeaveRoomIc />}
+          onClick={leaveRoom}
+        />
       </NextLink>
       {/* List of participants */}
       <Tooltip label='Participants'>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Video, { LocalVideoTrack, RemoteVideoTrack } from 'twilio-video'
 import { useDisclosure } from '@chakra-ui/react'
@@ -20,6 +20,7 @@ import CustomModal from 'components/Modal'
 import ListRemoteMembers from 'components/RoomDetails/ListRemoteMembers'
 import VideoCallScreenShared from 'components/RoomDetails/VideoCallScreenShared'
 import RoomFallback from 'components/RoomDetails/RoomFallback'
+import NotPermission from 'components/Errors/NotPermission'
 
 type Props = {
   profile: any
@@ -32,6 +33,7 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   const { participants } = useParticipant()
   const { roomSelected } = useRoomContext()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isMediaAllowed, setIsMediaAllowed] = useState<boolean>(true)
   //Information of current user logged in
   const { id, full_name } = profile
 
@@ -45,9 +47,13 @@ const RoomDetails = ({ profile, roomId }: Props) => {
       getToken(roomId, userId).then((token) => {
         Video.connect(token, {
           name: roomId
-        }).then((room) => {
-          setRoom(room)
         })
+          .then((room) => {
+            setRoom(room)
+          })
+          .catch(() => {
+            setIsMediaAllowed(false)
+          })
       })
 
       window.addEventListener('beforeunload', clearRoom)
@@ -65,9 +71,9 @@ const RoomDetails = ({ profile, roomId }: Props) => {
     }
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
+  if (!isMediaAllowed) return <NotPermission />
   if (!roomSelected) return <NotRoomFound roomId={roomId} />
-
-  if (!room) return <RoomFallback roomName={roomSelected.name} />
+  if (!room) return <RoomFallback roomName={roomSelected!.name} />
 
   return (
     <>
