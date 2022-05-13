@@ -4,6 +4,13 @@
 
 Besides, I've build this app to participate in hackaton organized by 👨‍💻 [midudev](https://twitch.tv/midudev)
 
+With iwannaknowyu you can:
+
+- Create multiple rooms
+- Share your room's code with other participants
+- See you recent activities
+- And more...
+
 # Stack ❤️
 
 - **Development**: React + Typescript
