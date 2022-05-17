@@ -34,7 +34,7 @@ export const VideoProvider = ({ children }: Props) => {
       setRoom(null)
       // Cleaning state and stop screen track in case user was sharing screen
       setScreenTrack(null)
-    }, 600)
+    }, 1000)
   }
 
   const clearRoom = useCallback(() => {
