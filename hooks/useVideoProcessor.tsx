@@ -47,10 +47,15 @@ export function getLocalVideoTracks(videoTracks: Map<string, LocalVideoTrackPubl
 
 const useVideoProcessor = () => {
   const IS_CHROMIUM_SUPPORTED = isSupported
+  const { room } = useVideoContext()
   // localParticipant's video track
   const [videoTracks, setVideoTracks] = useState<LocalVideoTrack[] | null>([])
-  const [hasProcessor, setHasProcessor] = useState(false)
-  const { room } = useVideoContext()
+  const [hasProcessor, setHasProcessor] = useState<boolean>(false)
+  const [modelConfig, setModelConfig] = useState(() => {
+    const saved = localStorage.getItem('modelConfig')
+    const initialValue = saved && JSON.parse(saved)
+    return initialValue || {}
+  })
 
   useEffect(() => {
     if (!IS_CHROMIUM_SUPPORTED) return
@@ -68,7 +73,9 @@ const useVideoProcessor = () => {
             maskBlurRadius: 5,
             blurFilterRadius: 10
           })
-          await blurProcessor.loadModel()
+          blurProcessor
+            .loadModel()
+            .then(() => setModelConfig((prevConfig: any) => ({ ...prevConfig, blur: true })))
         }
 
         if (!virtualProcessor) {
@@ -77,12 +84,18 @@ const useVideoProcessor = () => {
             backgroundImage: await getImage('dubai'),
             fitType: ImageFit.Cover
           })
-          await virtualProcessor.loadModel()
+          virtualProcessor
+            .loadModel()
+            .then(() => setModelConfig((prevConfig: any) => ({ ...prevConfig, virtual: true })))
         }
       }
       initProcessors()
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    localStorage.setItem('modelConfig', JSON.stringify(modelConfig))
+  }, [modelConfig])
 
   const removeProcessor = useCallback((videoTrack: LocalVideoTrack) => {
     // remove the existing processor from the track
@@ -95,7 +108,7 @@ const useVideoProcessor = () => {
     if (processor) {
       videoTrack.addProcessor(processor)
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleBackground = useCallback(
     (processor: Processor) => {
@@ -104,7 +117,7 @@ const useVideoProcessor = () => {
         setHasProcessor(true)
       }
     },
-    [videoTracks]
+    [videoTracks] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   const changeUserBackground = async (type: TypeBackground, keyImage: string | null = null) => {
@@ -124,7 +137,8 @@ const useVideoProcessor = () => {
   return {
     changeUserBackground,
     hasProcessor,
-    IS_CHROMIUM_SUPPORTED
+    IS_CHROMIUM_SUPPORTED,
+    modelConfig
   }
 }
 

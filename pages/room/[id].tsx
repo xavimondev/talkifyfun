@@ -8,6 +8,7 @@ import { getUserProfile } from 'utils/getUserProfile'
 import { getToken } from 'utils/getToken'
 import { supabase } from 'services/config'
 import useParticipant from 'hooks/useParticipants'
+import useRefresh from 'hooks/useRefresh'
 import { useVideoContext } from 'context/VideoContext'
 import { useRoomContext } from 'context/RoomContext'
 import PeopleConnected from 'components/RoomDetails/PeopleConnected'
@@ -40,6 +41,8 @@ const RoomDetails = ({ profile, roomId }: Props) => {
   // This userId must be less than 128 characters cause by twilio policies
   // Check: https://github.com/twilio/twilio-video.js/issues/221
   const userId = id + '|' + full_name
+
+  useRefresh()
 
   useEffect(() => {
     if (roomSelected) {

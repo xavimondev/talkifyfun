@@ -1,7 +1,8 @@
 import { Flex } from '@chakra-ui/react'
 
-import useAuth from 'hooks/useAuth'
 import { Profile as UserProfile } from 'types'
+import useAuth from 'hooks/useAuth'
+import useRefresh from 'hooks/useRefresh'
 
 import RoomsAvailable from './RoomsAvailable'
 import Profile from './Profile'
@@ -13,6 +14,7 @@ type Props = {
 
 const Dashboard = ({ profile }: Props) => {
   useAuth()
+  useRefresh()
 
   return (
     <>

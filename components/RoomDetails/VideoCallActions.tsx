@@ -8,12 +8,14 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Text,
   Tooltip
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 import { VIRTUAL_BACKGROUND_PATHS, IS_MOBILE } from 'config/constants'
 import { useVideoContext } from 'context/VideoContext'
+import useVideoProcessor from 'hooks/useVideoProcessor'
 import {
   CameraDisableIc,
   CameraIc,
@@ -24,7 +26,6 @@ import {
   PeopleIc,
   ScreenShareIc
 } from 'components/Icons'
-import useVideoProcessor from 'hooks/useVideoProcessor'
 
 type Props = {
   onOpen: () => void
@@ -41,7 +42,8 @@ const VideoCallActions = ({ onOpen }: Props) => {
     screenTrack
   } = useVideoContext()
 
-  const { changeUserBackground, hasProcessor, IS_CHROMIUM_SUPPORTED } = useVideoProcessor()
+  const { changeUserBackground, hasProcessor, IS_CHROMIUM_SUPPORTED, modelConfig } =
+    useVideoProcessor()
   const iconAudio = isAudioEnabled ? <MicrophoneIc /> : <MicrophoneMutedIc />
   const iconVideo = isVideoEnabled ? <CameraIc /> : <CameraDisableIc />
 
@@ -117,15 +119,16 @@ const VideoCallActions = ({ onOpen }: Props) => {
         Check: https://www.twilio.com/docs/video/javascript-v2-developing-safari-11
        */}
       {IS_CHROMIUM_SUPPORTED && (
-        <Box>
+        <Box display='flex' alignItems='baseline'>
           <Menu>
             <Tooltip label='Effects'>
               <MenuButton
                 as={IconButton}
                 aria-label='Options'
                 icon={<LightningIc />}
-                disabled={!isVideoEnabled}
+                disabled={!isVideoEnabled || !modelConfig.blur}
                 width='full'
+                mr='20px'
               />
             </Tooltip>
             <MenuList bg='gray.900'>
@@ -164,6 +167,14 @@ const VideoCallActions = ({ onOpen }: Props) => {
               ))}
             </MenuList>
           </Menu>
+          {/* If there is no effect's model loaded yet, we will show Loading message */}
+          {!modelConfig.blur && (
+            <Box>
+              <Text fontSize='md' fontWeight='semibold' color='red.500'>
+                Loading...
+              </Text>
+            </Box>
+          )}
         </Box>
       )}
     </Grid>
