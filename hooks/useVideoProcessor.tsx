@@ -5,45 +5,18 @@ import {
   ImageFit,
   isSupported
 } from '@twilio/video-processors'
-import { LocalVideoTrack, LocalVideoTrackPublication } from 'twilio-video'
+import { LocalVideoTrack } from 'twilio-video'
 
-import { PATH_ASSETS_VIDEO_PROCESSORS, VIRTUAL_BACKGROUND_PATHS } from 'config/constants'
+import { PATH_ASSETS_VIDEO_PROCESSORS } from 'config/constants'
+import { getLocalVideoTracks } from 'utils/getTracks'
+import { getImage } from 'utils/getImage'
 import { useVideoContext } from 'context/VideoContext'
 
 type Processor = VirtualBackgroundProcessor | GaussianBlurBackgroundProcessor | undefined
 type TypeBackground = 'virtual' | 'blur' | 'disabled'
 
-const IMAGES_ELEMENTS = new Map()
-
-/**
- * Cache image as soon as is downloaded
- * @param key - key of the image you want to get
- * @returns Promise that resolves an image
- */
-const getImage = (key: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    if (IMAGES_ELEMENTS.has(key)) {
-      return resolve(IMAGES_ELEMENTS.get(key))
-    }
-    const img = new Image()
-    img.onload = () => {
-      IMAGES_ELEMENTS.set(key, img)
-      resolve(img)
-    }
-    img.onerror = reject
-    img.src = VIRTUAL_BACKGROUND_PATHS[key]
-  })
-}
-
 let blurProcessor: GaussianBlurBackgroundProcessor
 let virtualProcessor: VirtualBackgroundProcessor
-
-export function getLocalVideoTracks(videoTracks: Map<string, LocalVideoTrackPublication>) {
-  // Convert the map of video track publications to an array of corresponding tracks
-  return Array.from(videoTracks.values())
-    .map((publication: any) => publication.track)
-    .filter((track) => track !== null)
-}
 
 const useVideoProcessor = () => {
   const IS_CHROMIUM_SUPPORTED = isSupported
