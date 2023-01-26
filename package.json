@@ -20,7 +20,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hot-toast": "2.2.0",
-    "twilio": "3.76.1",
+    "twilio": "4.0.0",
     "twilio-video": "2.21.1"
   },
   "devDependencies": {
