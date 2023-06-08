@@ -1,17 +1,19 @@
 # talkifyfun 🚀
 
-**talkifyfun** is a social media app to know people around the world.
+A platform that allows users to create and share virtual rooms for seamless video calls.
 
-Besides, I've build this app to participate in hackaton organized by 👨‍💻 [midudev](https://twitch.tv/midudev)
+With TalkifyFun, users can easily set up their rooms, which can be shared with others. This allows for effortless collaboration, communication in real-time.
+
+I've built this app to participate in hackaton organized by Twilio and 👨‍💻 [midudev](https://twitch.tv/midudev)
 
 With talkifyfun you can:
 
-- Create multiple rooms
-- Share your room's code with other participants
-- See you recent activities
+- Create multiple rooms.
+- Share your room's code with other participants.
+- See you recent activities.
 - And more...
 
-# Stack ❤️
+# Stack 🚀
 
 - **Development**: React + Typescript
 - **Styles**: [Chakra UI](https://chakra-ui.com/guides/first-steps)
@@ -26,10 +28,6 @@ With talkifyfun you can:
 2. Go to settings option on sidebar
 3. Select API option on project settings block
 4. Copy 'anon public' and 'URL'
-
-## Queries
-
-I haven't created the migrations to deploy all the tables to database. However, I will generate a script to generate the tables and policies.
 
 # Final Steps ✅
 
