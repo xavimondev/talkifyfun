@@ -1,10 +1,10 @@
-# iwannaknowyu 🚀
+# talkifyfun 🚀
 
-**iwannaknowyu.app** is a social media app to know people around the world.
+**talkifyfun** is a social media app to know people around the world.
 
 Besides, I've build this app to participate in hackaton organized by 👨‍💻 [midudev](https://twitch.tv/midudev)
 
-With iwannaknowyu you can:
+With talkifyfun you can:
 
 - Create multiple rooms
 - Share your room's code with other participants
